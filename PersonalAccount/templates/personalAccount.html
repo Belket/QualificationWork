@@ -1,0 +1,34 @@
+{%  load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Account</title>
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/CustomStyles.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/BeautyForms.css" %}">
+</head>
+
+
+
+{% block MENU %}
+{% endblock %}
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                {% block PERSONAL_DATA %}
+                {% endblock %}
+            </div>
+            <div class="col-md-4">
+                {% block HANDBOOKS %}
+                {% endblock %}
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</body>
+</html>
