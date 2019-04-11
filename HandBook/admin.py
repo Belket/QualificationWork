@@ -4,7 +4,7 @@ from HandBook.models import *
 
 
 @admin.register(Element)
-class TestAdmin(admin.ModelAdmin):
+class ElementAdmin(admin.ModelAdmin):
     inlines = []
     # fields = ["test_title", "test_lesson_number", "test_description", "test_timer", "test_doing_time",
     #         "test_publication_date", "test_price"]
@@ -12,20 +12,24 @@ class TestAdmin(admin.ModelAdmin):
 
 
 @admin.register(Class)
-class TestAdmin(admin.ModelAdmin):
+class ClassAdmin(admin.ModelAdmin):
     inlines = []
+    list_display = ['name']
 
 
 @admin.register(Group)
-class TestAdmin(admin.ModelAdmin):
+class GroupAdmin(admin.ModelAdmin):
     inlines = []
+    list_display = ['name']
 
 
 @admin.register(SubGroup)
-class TestAdmin(admin.ModelAdmin):
+class SubGroupAdmin(admin.ModelAdmin):
     inlines = []
+    list_display = ['name']
 
 
 @admin.register(Company)
-class TestAdmin(admin.ModelAdmin):
+class CompanyAdmin(admin.ModelAdmin):
     inlines = []
+    list_display = ['name']

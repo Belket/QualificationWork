@@ -15,6 +15,15 @@
         <label for="email">Почта</label>
         <input type="text" id="email" name="email" value="{{ user.email }}" readonly>
 
+        <label for="email">Организация</label>
+        <input type="text" id="organisation" name="organisation" value="{{ user.profile.organisation }}" readonly>
+
+        <label for="email">Должность</label>
+        <input type="text" id="position" name="position" value="{{ user.profile.position }}" readonly>
+
+        <label for="email">Монеты</label>
+        <input type="text" id="coins" name="coins" value="{{ user.profile.coins }}" readonly>
+
         <a href="/personal_account/changeData/"><button class="col-sm-12" type="button"> Изменить данные </button></a>
     </div>
 {% endblock %}
@@ -22,7 +31,10 @@
 
 
 {% block HANDBOOKS %}
-     <a href="/creating_handbook/"> Создать справочник </a>
+    <div type="fields">
+        <h3> Справочники </h3>
+        <a href="/creating_handbook/"> Создать справочник </a>
+    </div>
 {% endblock %}
 
 
@@ -37,7 +49,6 @@
             <li class="nav-item">
                     <a class="nav-link" href="/home/"> Главная страница </a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" href="/contact/"> Обратная связь </a>
             </li>

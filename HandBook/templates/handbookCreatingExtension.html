@@ -1,0 +1,25 @@
+{% extends "handbookCreating.html" %}
+
+
+{% block CLASSES %}
+
+    {% for class in classes %}
+
+        <div>
+            <input type="checkbox" id="{{ class.name }}" name="{{ class.name }}" value="{{ class.name }}" onchange="click_on_class(this.checked)">
+            <label for="{{ class.name }}">{{ class.name }}</label>
+        </div>
+    {% endfor %}
+        <input type="checkbox" id="ttype" name="R" value="R" onchange="click()">
+    <label for="type">R</label>
+{% endblock %}
+
+{% block GROUPS %}
+
+{% endblock %}
+
+{% block SUBGROUPS %}
+{% endblock %}
+
+{% block ELEMENTS %}
+{% endblock %}

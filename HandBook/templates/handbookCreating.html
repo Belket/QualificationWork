@@ -1,11 +1,40 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/CustomStyles.css" %}">
+    <script type="text/javascript" src="{% static "JS/jquery-2.1.4.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "JS/handbookScripts.js" %}"></script>
 </head>
 <body>
 
+<div class="page_header">
+    <h3>Qualification Work</h3>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            {% block CLASSES %}
+            {% endblock %}
+        </div>
+        <div class="col-md-3">
+            {% block GROUPS %}
+            {% endblock %}
+        </div>
+        <div class="col-md-3">
+            {% block SUBGROUPS %}
+            {% endblock %}
+        </div>
+        <div class="col-md-3">
+            {% block ELEMENTS %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
 
 <a href="/created_handbook/"> Сформировать справочник </a>
 
