@@ -16,7 +16,7 @@
     </nav>
 
 
-
+    <!-- фамилия, имя, почта, организация, должность -->
 
 
 <div class="container">
@@ -44,6 +44,18 @@
 
                     <label for="id_email"> Email адрес: </label>
                     {{ user_creation_form.email }}
+
+                    <label for="first_name"> Имя: </label>
+                    {{ user_creation_form.first_name }}
+
+                    <label for="last_name"> Фамилия: </label>
+                    {{ user_creation_form.last_name }}
+
+                    <label for="organisation"> Организация: </label>
+                    {{ profile_creation_form.organisation }}
+
+                    <label for="position"> Должность: </label>
+                    {{ profile_creation_form.position }}
 
                     <input type="submit" value="Зарегистрироваться">
                 </div>

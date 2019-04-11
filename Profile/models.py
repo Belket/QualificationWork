@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    organisation = models.CharField(max_length=100, blank=False)
+    organisation = models.CharField(max_length=100, blank=False, default='None')
+    position = models.CharField(max_length=100, default="None")
     coins = models.IntegerField(default=100)  # points to buy information about elements
 
     def __str__(self):
