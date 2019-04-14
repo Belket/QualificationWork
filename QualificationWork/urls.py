@@ -16,6 +16,7 @@ urlpatterns = [
     path('personal_account/changeData/', personal_account_views.change_data),
     path('creating_handbook/', handbook_views.choose_elements),
     path('created_handbook/', handbook_views.create_handbook),
+    path('collect_data/', handbook_views.collect_data),
     path('home/', home_views.home_page),
     path('', home_views.home_page),
 ]

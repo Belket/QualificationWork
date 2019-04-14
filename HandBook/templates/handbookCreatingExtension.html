@@ -2,24 +2,28 @@
 
 
 {% block CLASSES %}
-
-    {% for class in classes %}
-
-        <div>
-            <input type="checkbox" id="{{ class.name }}" name="{{ class.name }}" value="{{ class.name }}" onchange="click_on_class(this.checked)">
-            <label for="{{ class.name }}">{{ class.name }}</label>
-        </div>
-    {% endfor %}
-        <input type="checkbox" id="ttype" name="R" value="R" onchange="click()">
-    <label for="type">R</label>
+    <div id="classes">
+        {% for class in classes %}
+            <div id="container_{{ class.name }}">
+                <input type="checkbox" id="{{ class.name }}" name="{{ class.name }}" value="{{ class.name }}" onchange="click_on_class(this)">
+                <label for="{{ class.name }}">{{ class.name }}</label>
+                <br>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 {% block GROUPS %}
-
+    <div id="groups">
+    </div>
 {% endblock %}
 
 {% block SUBGROUPS %}
+    <div id="subgroups">
+    </div>
 {% endblock %}
 
 {% block ELEMENTS %}
+    <div id="elements">
+    </div>
 {% endblock %}
