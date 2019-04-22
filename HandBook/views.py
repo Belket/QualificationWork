@@ -3,8 +3,6 @@ from HandBook.models import Class, Group, SubGroup, Company, Element
 import json
 from django.http.response import HttpResponse
 from django.template.context_processors import csrf
-from anytree import Node
-# Create your views here.
 
 
 def choose_elements(request):

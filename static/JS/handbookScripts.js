@@ -35,6 +35,7 @@ function AJAX_remove_data(name, column_id, event_id) {
     })
 }
 
+
 function click_on_class(class_element) {
     let columns = ['classes', 'groups', 'subgroups', 'elements'];
     let class_name = class_element.id;
