@@ -50,8 +50,39 @@
                     <a class="nav-link" href="/home/"> Главная страница </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/contact/"> Обратная связь </a>
+                    <a class="nav-link" href="#about_project"> О проекте </a>
             </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="#aim"> Цель </a>
+            </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="/offer_element/"> Добавить </a>
+            </li>
+
+            {% if username %} <!-- Пользователь авторизирован -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact/"> Обратная связь </a>
+                </li>
+                <div class="form-row auth_pare">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/personal_account/"> Личный кабинет </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/logout/">Выйти ({{ username }})<span class="sr-only">(current)</span></a>
+                    </li>
+                </div>
+
+            {% else %} <!-- Пользователь не авторищирован -->
+                <div class="form-row auth_pare">
+                    <li>
+                        <a class="nav-link" href="/auth/login/"> Войти </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="/auth/registration/"> Зарегистрироваться </a>
+                    </li>
+                </div>
+            {% endif %}
+
         </ul>
       </div>
     </nav>

@@ -42,13 +42,13 @@ class Element(models.Model):
         verbose_name = "Element"
         verbose_name_plural = "Elements"
     name = models.CharField(max_length=100, blank=False)
-    company_id = models.ForeignKey(Company, on_delete=models.CASCADE)
-    class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
-    group_id = models.ForeignKey(Group, on_delete=models.CASCADE)
-    subgroup_id = models.ForeignKey(SubGroup, on_delete=models.CASCADE)
+    Company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    Class = models.ForeignKey(Class, on_delete=models.CASCADE)
+    Group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    Subgroup = models.ForeignKey(SubGroup, on_delete=models.CASCADE)
     T0 = models.FloatField(blank=False)
     Txp = models.FloatField(blank=False)
     Tp = models.FloatField(blank=False)
     TB = models.FloatField(blank=False)
     Info = models.TextField(blank=True)
-    date_of_ading = models.DateField(blank=False)
+    date_of_adding = models.DateField(blank=False)

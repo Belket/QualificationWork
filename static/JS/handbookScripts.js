@@ -52,3 +52,18 @@ function click_on_class(class_element) {
     }
 }
 
+
+function prepare_page() {
+    $.get("/remove_files/");
+    //window.onbeforeunload = function () {
+        $.ajax({
+            type: "GET",   // Тип запроса
+            url: "/remove_files/",   // Путь к сценарию, обработающему запрос
+        })
+    ///}
+}
+
+
+function remove() {
+    $.get("/remove_files/");
+}

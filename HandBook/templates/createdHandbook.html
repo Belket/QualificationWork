@@ -1,10 +1,19 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/CustomStyles.css" %}">
+    <script type="text/javascript" src="{% static "JS/handbookScripts.js" %}"></script>
 </head>
-<body>
+
+<body onload="prepare_page()" onunload="remove()">
+
+{% block MENU %}
+{% endblock %}
 
 Вот ваш справочник
 </body>

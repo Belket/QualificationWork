@@ -16,6 +16,7 @@ urlpatterns = [
     path('offer_element/', offer_views.offer_element),
     path('personal_account/', personal_account_views.show_account),
     path('personal_account/changeData/', personal_account_views.change_data),
+    path('remove_files/', handbook_views.remove_files),
     path('creating_handbook/', handbook_views.choose_elements),
     path('created_handbook/', handbook_views.create_handbook),
     path('collect_data/', handbook_views.collect_data),

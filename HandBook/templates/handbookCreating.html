@@ -11,32 +11,44 @@
 </head>
 <body>
 
+
 <div class="page_header">
     <h3>Qualification Work</h3>
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            {% block CLASSES %}
-            {% endblock %}
-        </div>
-        <div class="col-md-3">
-            {% block GROUPS %}
-            {% endblock %}
-        </div>
-        <div class="col-md-3">
-            {% block SUBGROUPS %}
-            {% endblock %}
-        </div>
-        <div class="col-md-3">
-            {% block ELEMENTS %}
-            {% endblock %}
+
+{% block MENU %}
+{% endblock %}
+
+
+<form method="post" action="/created_handbook/">
+    <div class="container">
+        <div class="row">
+
+                {% csrf_token %}
+                <div class="col-md-3">
+                    {% block CLASSES %}
+                    {% endblock %}
+                </div>
+                <div class="col-md-3">
+                    {% block GROUPS %}
+                    {% endblock %}
+                </div>
+                <div class="col-md-3">
+                    {% block SUBGROUPS %}
+                    {% endblock %}
+                </div>
+                <div class="col-md-3">
+                    {% block ELEMENTS %}
+                    {% endblock %}
+                </div>
+                <hr>
+                <input type="submit" value="Сформировать справочник">
+
         </div>
     </div>
-</div>
+</form>
 
-<a href="/created_handbook/"> Сформировать справочник </a>
 
 </body>
 </html>
