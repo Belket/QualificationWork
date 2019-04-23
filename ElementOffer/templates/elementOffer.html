@@ -1,0 +1,87 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" type="text/css" href="{% static "CSS/bootstrap.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "CSS/CustomStyles.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "CSS/BeautyForms.css" %}">
+
+        <script src="{% static "JS/jquery-2.1.4.min.js" %}"></script>
+        <script src="{% static "JS/UsefulScripts.js" %}"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    </head>
+<body>
+
+
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="main_page_header" >
+            <h3> Введите данные элемента! </h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <form action="/offer_element/" method="POST">
+        {% csrf_token %}
+            <table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Класс</th>
+                  <th scope="col">Группа</th>
+                  <th scope="col">Подгруппа</th>
+                  <th scope="col">Элемент</th>
+                  <th scope="col">Наработка на отказ</th>
+                  <th scope="col">Время использования</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="row1">
+                  <th scope="row">1</th>
+                      <td>
+                      </td>
+                      <td>
+                        <div class="input-group">
+                              <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01"></label>
+                              </div>
+                              <select class="custom-select" id="inputGroupSelect01">
+                                <option selected>Choose...</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                              </select>
+                        </div>
+                      </td>
+                  <td>
+                      <input type="text" class="for_table">
+                  </td>
+                  <td>
+                      <input type="text" class="for_table">
+                  </td>
+                  <td>
+                      <input type="text" class="for_table">
+                  </td>
+                  <td>
+                      <input type="text" class="for_table">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <input type="submit" value="Предложить">
+        </form>
+
+
+
+
+    </div>
+</div>
+
+
+
+</body>
+</html>

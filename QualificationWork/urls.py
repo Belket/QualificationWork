@@ -6,12 +6,14 @@ from AuthSys import views as auth_views
 from HomePage import views as home_views
 from PersonalAccount import views as personal_account_views
 from HandBook import views as handbook_views
+from ElementOffer import views as offer_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/login/', auth_views.login),
     path('auth/registration/', auth_views.registration),
     path('auth/logout/', auth_views.logout),
+    path('offer_element/', offer_views.offer_element),
     path('personal_account/', personal_account_views.show_account),
     path('personal_account/changeData/', personal_account_views.change_data),
     path('creating_handbook/', handbook_views.choose_elements),

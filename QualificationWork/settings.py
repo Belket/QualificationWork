@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'Profile',
     'HomePage',
     'PersonalAccount',
-    'HandBook'
+    'HandBook',
+    'ElementOffer'
 ]
 
 MIDDLEWARE = [
