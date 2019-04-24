@@ -7,14 +7,16 @@
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="{% static "CSS/bootstrap.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "CSS/CustomStyles.css" %}">
+    <script type="text/javascript" src="{% static "JS/jquery-2.1.4.min.js" %}"></script>
     <script type="text/javascript" src="{% static "JS/handbookScripts.js" %}"></script>
 </head>
 
-<body onload="prepare_page()" onunload="remove()">
+<body onload="activate_removing()">
 
 {% block MENU %}
 {% endblock %}
 
 Вот ваш справочник
+
 </body>
 </html>

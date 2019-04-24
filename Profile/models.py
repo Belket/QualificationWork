@@ -17,6 +17,9 @@ class Profile(models.Model):
         self.coins = self.coins + additional_coins
         self.save()
 
+    def set_coins(self, coins):
+        self.coins = coins
+
 
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):

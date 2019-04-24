@@ -33,6 +33,16 @@
 {% block HANDBOOKS %}
     <div type="fields">
         <h3> Справочники </h3>
+        <hr>
+        <div id="created_handbooks">
+            {% for handbook in handbooks %}
+                <div>
+                    Название: <a href="/created_handbook/?handbook={{ handbook.id }}">{{ handbook.handbook_name }}</a><br>
+                    Дата добавления: {{ handbook.date_of_adding }}
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
         <a href="/creating_handbook/"> Создать справочник </a>
     </div>
 {% endblock %}

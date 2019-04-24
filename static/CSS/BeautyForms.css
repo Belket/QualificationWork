@@ -53,16 +53,3 @@ div[type=fields]{
   background-color: #f2f2f2;
   padding: 20px;
 }
-
-
-.auth_pare{
-    position: absolute;
-    right: 15px;
-}
-
-
-.main_page_header{
-    text-align:center;
-    font-family: serif;
-    color: dodgerblue;
-}

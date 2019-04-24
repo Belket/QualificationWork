@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+import datetime
 
 # Create your models here.
 
@@ -52,3 +54,27 @@ class Element(models.Model):
     TB = models.FloatField(blank=False)
     Info = models.TextField(blank=True)
     date_of_adding = models.DateField(blank=False)
+
+
+def set_time():
+    date = datetime.datetime.now().date()
+    time = datetime.datetime.now().time()
+    date = str(date.year) + '.' + str(date.month) + '.' + str(date.day) + ', '
+    time = str(time.hour) + ':' + str(time.minute)
+    return date + time
+
+
+class HandBook(models.Model):
+    class Meta:
+        verbose_name = "Handbook"
+        verbose_name_plural = "Handbooks"
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    handbook_name = models.CharField(max_length=30, default="user_handbook")
+    elements = models.CharField(max_length=10000, default="", blank=True)
+    date_of_adding = models.CharField(max_length=30, default=set_time())
+
+    def set_elements(self, elements_ids):
+        self.elements = ','.join(str(element) for element in elements_ids)
+
+    def get_elements_ids(self):
+        return [int(element) for element in self.elements.split(',')]

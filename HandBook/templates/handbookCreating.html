@@ -9,19 +9,27 @@
     <script type="text/javascript" src="{% static "JS/jquery-2.1.4.min.js" %}"></script>
     <script type="text/javascript" src="{% static "JS/handbookScripts.js" %}"></script>
 </head>
-<body>
+<body onload="initialize_page()">
 
 
 <div class="page_header">
     <h3>Qualification Work</h3>
 </div>
 
+<div>
+    {% block MENU %}
+    {% endblock %}
+</div>
 
-{% block MENU %}
-{% endblock %}
+
+
 
 
 <form method="post" action="/created_handbook/">
+    <div id="handbook_meta">
+        <input id="handbook_name" type="text" placeholder="Введите название справочника" name="handbook_name">
+        <label> Единиц валюты: <div id="coins">{{ user.profile.coins }}</div></label>
+    </div>
     <div class="container">
         <div class="row">
 

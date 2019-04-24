@@ -1,5 +1,5 @@
 from django.shortcuts import render, render_to_response
-from HandBook.models import Class, Group, SubGroup, Company, Element
+from HandBook.models import Class, Group, SubGroup, Company, Element, HandBook
 import json
 from django.http.response import HttpResponse
 from django.template.context_processors import csrf
@@ -10,12 +10,11 @@ import os
 
 
 def remove_files(request):
-    filepath = '/static/ExportFiles/'
-    excel_file = filepath + request.user.username + '_excel_file.xslx'
+    filepath = 'static/ExportFiles/'
+    excel_file = filepath + request.user.username + '_excel_file.xlsx'
     pdf_file = filepath + request.user.username + '_pdf_file.pdf'
     os.remove(excel_file)
     os.remove(pdf_file)
-    print("GoodWork")
     return HttpResponse('200')
 
 
@@ -24,6 +23,8 @@ def choose_elements(request):
     args.update(csrf(request))
     classes = list(Class.objects.all())
     args.update({"classes": classes})
+    args.update({"username": request.user.username})
+    args.update({"user": request.user})
     return render_to_response("handbookCreatingExtension.html", args)
 
 
@@ -84,25 +85,47 @@ def element_parameters(element, fields):
     return fields_list
 
 
+def create_dataframe(required_elements, elements_indexes=False):
+    if elements_indexes:
+        elements_ids = []
+        fields = [field.name for field in Element._meta.get_fields()]
+        df = pd.DataFrame(columns=fields)
+        for index_element, element in enumerate(required_elements):
+            df.loc[index_element] = element_parameters(element, fields)
+            elements_ids.append(element.id)
+        return df, elements_ids
+    else:
+        fields = [field.name for field in Element._meta.get_fields()]
+        df = pd.DataFrame(columns=fields)
+        for index_element, element in enumerate(required_elements):
+            df.loc[index_element] = element_parameters(element, fields)
+        return df
+
+
 def create_handbook(request):
     args = {}
     args.update(csrf(request))
-    args.update({"username":request.user.username})
+    args.update({"username": request.user.username})
+    file_path = 'static/ExportFiles/'
     if request.POST:
+        # формирование справочника и сохранение в бд
         required_elements = [element for element in Element.objects.all() if request.POST.getlist(element.name) is not None]
-        fields = [field.name for field in Element._meta.get_fields()]
-        df = pd.DataFrame(columns=fields)
-
-        for index_element, element in enumerate(required_elements):
-            df.loc[index_element] = element_parameters(element, fields)
-
-        filepath = 'static/ExportFiles/'
-        # export_df_to_pdf(df, filename=filepath + str(request.user.username) + '_pdf_file')
-        # export_df_to_excel(df, filename=filepath + str(request.user.username) + '_excel_file')
-
+        df, elements_ids = create_dataframe(required_elements, True)
+        handbook_name = request.POST.get("handbook_name")
+        handbook = HandBook(user=request.user,
+                            handbook_name=handbook_name)
+        handbook.set_elements(elements_ids)
+        handbook.save()
+        export_df_to_pdf(df, filename=file_path + str(request.user.username) + '_pdf_file')
+        export_df_to_excel(df, filename=file_path + str(request.user.username) + '_excel_file')
         args.update({"elements": required_elements})
         return render_to_response("createdHandbookExtension.html", args)
     else:
         # формирование готового справочника
-
+        elements_ids = HandBook.objects.get(id=request.GET['handbook']).get_elements_ids()
+        print(elements_ids)
+        elements = Element.objects.filter(pk__in=elements_ids)
+        df = create_dataframe(elements)
+        export_df_to_pdf(df, filename=file_path + str(request.user.username) + '_pdf_file')
+        export_df_to_excel(df, filename=file_path + str(request.user.username) + '_excel_file')
         return render_to_response("createdHandbookExtension.html", args)
