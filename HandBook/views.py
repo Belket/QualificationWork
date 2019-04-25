@@ -1,5 +1,6 @@
 from django.shortcuts import render, render_to_response
 from HandBook.models import Class, Group, SubGroup, Company, Element, HandBook
+from Profile.models import Profile
 import json
 from django.http.response import HttpResponse
 from django.template.context_processors import csrf
@@ -44,14 +45,11 @@ def get_data_for_removing(name, column):
     if column == 'classes':
         groups = get_groups(name)
         subgroups = sum([get_subgroups(group) for group in groups], [])
-        print(subgroups)
         elements = sum([get_elements(subgroup) for subgroup in subgroups], [])
-        print(elements)
         return groups + subgroups + elements
     if column == 'groups':
         subgroups = get_subgroups(name)
         elements = sum([get_elements(subgroup) for subgroup in subgroups], [])
-        print(elements)
         return subgroups + elements
     if column == 'subgroups':
         return get_elements(name)
@@ -109,23 +107,32 @@ def create_handbook(request):
     file_path = 'static/ExportFiles/'
     if request.POST:
         # формирование справочника и сохранение в бд
-        required_elements = [element for element in Element.objects.all() if request.POST.getlist(element.name) is not None]
-        df, elements_ids = create_dataframe(required_elements, True)
-        handbook_name = request.POST.get("handbook_name")
-        handbook = HandBook(user=request.user,
-                            handbook_name=handbook_name)
-        handbook.set_elements(elements_ids)
-        handbook.save()
-        export_df_to_pdf(df, filename=file_path + str(request.user.username) + '_pdf_file')
-        export_df_to_excel(df, filename=file_path + str(request.user.username) + '_excel_file')
-        args.update({"elements": required_elements})
-        return render_to_response("createdHandbookExtension.html", args)
+        print(request.POST)
+        print(request.POST.get("new"))
+        required_elements = [element for element in Element.objects.all() if request.POST.get(element.name) is not None]
+        print(required_elements)
+        if len(required_elements) != 0:
+            df, elements_ids = create_dataframe(required_elements, True)
+            request.user.profile.set_coins(request.POST.get("coins"))
+            request.user.profile.save()
+            handbook = HandBook(user=request.user,
+                                handbook_name=request.POST.get("handbook_name"))
+            handbook.set_elements(elements_ids)
+            handbook.save()
+            export_df_to_pdf(df, filename=file_path + str(request.user.username) + '_pdf_file')
+            export_df_to_excel(df, filename=file_path + str(request.user.username) + '_excel_file')
+            args.update({"elements": df.values.tolist()})
+            args.update({"columns": df.columns})
+            return render_to_response("createdHandbookExtension.html", args)
+        else:
+            return render_to_response("createdHandbookExtension.html", args)
     else:
         # формирование готового справочника
         elements_ids = HandBook.objects.get(id=request.GET['handbook']).get_elements_ids()
-        print(elements_ids)
         elements = Element.objects.filter(pk__in=elements_ids)
         df = create_dataframe(elements)
         export_df_to_pdf(df, filename=file_path + str(request.user.username) + '_pdf_file')
         export_df_to_excel(df, filename=file_path + str(request.user.username) + '_excel_file')
+        args.update({"elements": df.values.tolist()})
+        args.update({"columns": df.columns})
         return render_to_response("createdHandbookExtension.html", args)

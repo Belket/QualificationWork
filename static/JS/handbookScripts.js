@@ -12,7 +12,9 @@ function AJAX_add_data(name, column_id, event_id, column_for_adding) {
         success: function (data) {
             for (let i = 0; i < data.length; i++) {
                 let current_container = $('<div id="container_' + data[i] + '"></div>');
+                //let current_container = document.createElement('<div id="container_' + data[i] + '"></div>');
                 $('#' + column_for_adding).append(current_container);
+                //document.getElementById(column_for_adding).appendChild(current_container);
                 current_container.append('<input id="' + data[i] +'" type="checkbox" value="' + data[i] + '" onchange="click_on_class(this)">' + '<label for="' + data[i] + '"> ' + data[i] + '</label> <br>');
             }
         }
@@ -46,8 +48,6 @@ function click_on_class(class_element) {
     let columns = ['classes', 'groups', 'subgroups', 'elements'];
     let class_name = class_element.id;
     let column_id = $(class_element).parent().parent().attr("id");
-
-
     if (column_id !== 'elements'){
         if (class_element.checked){
             let event_id = 0;
@@ -61,9 +61,13 @@ function click_on_class(class_element) {
     else{
         let elements_block = document.getElementById(column_id);
         elements_block.setAttribute("class", "checked");
+        if ((coins === 0) && (class_element.checked === true)) {
+            offer_to_earn(coins);
+            class_element.checked = false;
+        }
     }
 
-    if (document.getElementById("elements").children.length === 0){document.getElementById("coins").innerHTML = start_coins}
+    if (document.getElementById("elements").children.length === 0){document.getElementById("coins").value = start_coins}
     console.log(document.getElementById("elements").children.length);
 }
 
@@ -81,6 +85,15 @@ function activate_removing() {
 }
 
 
+function offer_to_earn() {
+    let message = "У вас закончились деньги, чтобы доюавить больше элементов, участвуйте в развитии проекта";
+    let href = "<a href='/offer_element/'> Заработать валюту </a>";
+    let content = "<div>" + message + href + "</div>";
+    alert(message)
+}
+
+
+// observe changes in elements
 function observe_mutations(){
   let mutationObserver = new MutationObserver(function(mutations) {
   mutations.forEach(function(mutation) {
@@ -89,10 +102,10 @@ function observe_mutations(){
       for(let child = 0; child < children.length; child++){
           let class_name = document.getElementById(children[child].id).id.split('_')[1];
           if (document.getElementById(class_name).checked === true) {current_value += 1}
-          coins += old_checked_value - current_value;
-          old_checked_value = current_value;
-          document.getElementById("coins").innerHTML = coins;
       }
+      coins += old_checked_value - current_value;
+      old_checked_value = current_value;
+      document.getElementById("coins").value = coins;
     });
   });
 
@@ -108,15 +121,17 @@ function observe_mutations(){
 }
 
 
+// start observation
 function prepare_observe(){
-    start_coins = parseInt(document.getElementById("coins").innerHTML);
+    start_coins = parseInt(document.getElementById("coins").value);
     old_checked_value = 0;
-    coins = parseInt(document.getElementById("coins").innerHTML);
-    console.log("Observer");
+    coins = parseInt(document.getElementById("coins").value);
+    if (coins === 0) {offer_to_earn(coins)}
     observe_mutations();
 }
 
 
+// on load function
 function initialize_page() {
     set_checkbox_state();
     prepare_observe();

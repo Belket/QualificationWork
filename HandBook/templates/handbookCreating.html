@@ -23,17 +23,17 @@
 
 
 
-
-
 <form method="post" action="/created_handbook/">
-    <div id="handbook_meta">
-        <input id="handbook_name" type="text" placeholder="Введите название справочника" name="handbook_name">
-        <label> Единиц валюты: <div id="coins">{{ user.profile.coins }}</div></label>
-    </div>
+{% csrf_token %}
     <div class="container">
         <div class="row">
-
-                {% csrf_token %}
+            <div id="handbook_meta">
+                <input id="handbook_name" type="text" placeholder="Введите название справочника" name="handbook_name" required>
+                <label for="coins"> Единиц валюты: </label>
+                <input id="coins" name="coins" value="{{ user.profile.coins }}" readonly>
+            </div>
+        </div>
+        <div class="row">
                 <div class="col-md-3">
                     {% block CLASSES %}
                     {% endblock %}
@@ -51,10 +51,9 @@
                     {% endblock %}
                 </div>
                 <hr>
-                <input type="submit" value="Сформировать справочник">
-
         </div>
     </div>
+<input type="submit" value="Сформировать справочник">
 </form>
 
 
