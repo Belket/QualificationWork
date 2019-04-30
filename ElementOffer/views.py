@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response, HttpResponse
 from HandBook.models import Class, Group, SubGroup, Element
+from ElementOffer.models import OfferedElement
 from django.template.context_processors import csrf
 import json
 
@@ -7,9 +8,13 @@ import json
 def offer_element(request):
     args = {}
     args.update(csrf(request))
+    print(request.POST)
     if request.POST:
+        for index in range(request.POST.get("groups")):
+            offered_element = OfferedElement(Class=request.POST.get("classes")[0],
+                                             Group=request.POST.get("groups")[0],
+                                             Subgroup=request.POST.get("subgroups")[0])
 
-        print(request.POST)
         return render_to_response('homeExtension.html', args)
     else:
         args.update({"Classes": [_class.name for _class in Class.objects.all()]})
@@ -19,7 +24,6 @@ def offer_element(request):
 
 
 def collect_for_table(request):
-    data = []
     if int(request.GET["type"]) == 0:
         data = [group.name for group in Group.objects.filter(class_id=Class.objects.get(name=request.GET["name"]))]
     else:
