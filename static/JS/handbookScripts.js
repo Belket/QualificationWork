@@ -12,10 +12,8 @@ function AJAX_add_data(name, column_id, event_id, column_for_adding) {
         success: function (data) {
             for (let i = 0; i < data.length; i++) {
                 let current_container = $('<div id="container_' + data[i] + '"></div>');
-                //let current_container = document.createElement('<div id="container_' + data[i] + '"></div>');
                 $('#' + column_for_adding).append(current_container);
-                //document.getElementById(column_for_adding).appendChild(current_container);
-                current_container.append('<input id="' + data[i] +'" type="checkbox" value="' + data[i] + '" onchange="click_on_class(this)">' + '<label for="' + data[i] + '"> ' + data[i] + '</label> <br>');
+                current_container.append('<input id="' + data[i] +'" name="' + data[i] + '" type="checkbox" value="' + data[i] + '" onchange="click_on_class(this)">' + '<label for="' + data[i] + '"> ' + data[i] + '</label> <br>');
             }
         }
     })

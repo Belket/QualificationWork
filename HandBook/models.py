@@ -54,6 +54,7 @@ class Element(models.Model):
     TB = models.FloatField(blank=False)
     Info = models.TextField(blank=True)
     date_of_adding = models.DateField(blank=False)
+    confirm_link = models.CharField(max_length=100, default="None")
 
 
 def set_time():

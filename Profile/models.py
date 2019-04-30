@@ -9,12 +9,22 @@ class Profile(models.Model):
     organisation = models.CharField(max_length=100, blank=False, default='None')
     position = models.CharField(max_length=100, default="None")
     coins = models.IntegerField(default=100)  # points to buy information about elements
+    level = models.IntegerField(default=1)
+    confirmed_elements = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username
 
-    def add_coins(self, additional_coins):
+    def set_level(self):
+        level = self.confirmed_elements // 4
+        self.level = level if level > 0 else 1
+        self.save()
+
+    def add_coins(self):
+        additional_coins = self.level * 5
         self.coins = self.coins + additional_coins
+        self.confirmed_elements += 1
+        self.set_level()
         self.save()
 
     def set_coins(self, coins):

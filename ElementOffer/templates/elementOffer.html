@@ -5,13 +5,11 @@
     <head>
         <meta charset="UTF-8">
         <title>Title</title>
-        <link rel="stylesheet" type="text/css" href="{% static "CSS/bootstrap.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "CSS/bootstrap.min.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "CSS/CustomStyles.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "CSS/BeautyForms.css" %}">
-
         <script src="{% static "JS/jquery-2.1.4.min.js" %}"></script>
         <script src="{% static "JS/UsefulScripts.js" %}"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     </head>
 <body>
@@ -27,7 +25,7 @@
     <div class="row">
         <form action="/offer_element/" method="POST">
         {% csrf_token %}
-            <table class="table table-bordered table-condensed">
+            <table id="offer_table" class="table table-bordered table-condensed">
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -40,46 +38,46 @@
                 </tr>
               </thead>
               <tbody>
-                <tr id="row1">
-                  <th scope="row">1</th>
+                <tr id="row_1">
+                      <th scope="row">1</th>
                       <td>
+                          <input id="class_1" name="classes" class="for_table" type="text" list="classes" onchange="collect_groups(this)"/>
+                          <datalist id="classes">
+                              {% for class in Classes %}
+                                  <option>{{ class }}</option>
+                              {%  endfor %}
+                          </datalist>
                       </td>
                       <td>
-                        <div class="input-group">
-                              <div class="input-group-prepend">
-                                <label class="input-group-text" for="inputGroupSelect01"></label>
-                              </div>
-                              <select class="custom-select" id="inputGroupSelect01">
-                                <option selected>Choose...</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                              </select>
-                        </div>
+                          <input id="group_1" name="groups" class="for_table" type="text" list="groups_1" onchange="collect_subgroups(this)"/>
+                          <datalist id="groups_1">
+                          </datalist>
                       </td>
-                  <td>
-                      <input type="text" class="for_table">
-                  </td>
-                  <td>
-                      <input type="text" class="for_table">
-                  </td>
-                  <td>
-                      <input type="text" class="for_table">
-                  </td>
-                  <td>
-                      <input type="text" class="for_table">
-                  </td>
+                      <td>
+                          <input id="subgroup_1" name="subgroups" class="for_table" type="text" list="subgroups_1"/>
+                          <datalist id="subgroups_1">
+                          </datalist>
+                      </td>
+                      <td>
+                          <input id="element_1" type="text" class="for_table">
+                      </td>
+                      <td>
+                          <input type="text" class="for_table">
+                      </td>
+                      <td>
+                          <input type="text" class="for_table">
+                      </td>
                 </tr>
               </tbody>
             </table>
+            <input type="button" value="Добавить элемент" onclick="add_table_row()">
             <input type="submit" value="Предложить">
         </form>
-
-
-
-
     </div>
 </div>
+
+
+
 
 
 

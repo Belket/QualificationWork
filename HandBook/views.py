@@ -105,12 +105,11 @@ def create_handbook(request):
     args.update(csrf(request))
     args.update({"username": request.user.username})
     file_path = 'static/ExportFiles/'
+    links = {"pdf": file_path + str(request.user.username) + '_pdf_file',
+             "excel": file_path + str(request.user.username) + '_excel_file'}
     if request.POST:
         # формирование справочника и сохранение в бд
-        print(request.POST)
-        print(request.POST.get("new"))
         required_elements = [element for element in Element.objects.all() if request.POST.get(element.name) is not None]
-        print(required_elements)
         if len(required_elements) != 0:
             df, elements_ids = create_dataframe(required_elements, True)
             request.user.profile.set_coins(request.POST.get("coins"))
@@ -119,10 +118,11 @@ def create_handbook(request):
                                 handbook_name=request.POST.get("handbook_name"))
             handbook.set_elements(elements_ids)
             handbook.save()
-            export_df_to_pdf(df, filename=file_path + str(request.user.username) + '_pdf_file')
-            export_df_to_excel(df, filename=file_path + str(request.user.username) + '_excel_file')
+            export_df_to_pdf(df, filename=links.get("pdf"))
+            export_df_to_excel(df, filename=links.get("excel"))
             args.update({"elements": df.values.tolist()})
             args.update({"columns": df.columns})
+            args.update({"links": links})
             return render_to_response("createdHandbookExtension.html", args)
         else:
             return render_to_response("createdHandbookExtension.html", args)
@@ -131,8 +131,9 @@ def create_handbook(request):
         elements_ids = HandBook.objects.get(id=request.GET['handbook']).get_elements_ids()
         elements = Element.objects.filter(pk__in=elements_ids)
         df = create_dataframe(elements)
-        export_df_to_pdf(df, filename=file_path + str(request.user.username) + '_pdf_file')
-        export_df_to_excel(df, filename=file_path + str(request.user.username) + '_excel_file')
+        export_df_to_pdf(df, filename=links.get("pdf"))
+        export_df_to_excel(df, filename=links.get("excel"))
         args.update({"elements": df.values.tolist()})
         args.update({"columns": df.columns})
+        args.update({"links": links})
         return render_to_response("createdHandbookExtension.html", args)

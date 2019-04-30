@@ -14,6 +14,7 @@ urlpatterns = [
     path('auth/registration/', auth_views.registration),
     path('auth/logout/', auth_views.logout),
     path('offer_element/', offer_views.offer_element),
+    path('collect_for_table/', offer_views.collect_for_table),
     path('personal_account/', personal_account_views.show_account),
     path('personal_account/changeData/', personal_account_views.change_data),
     path('remove_files/', handbook_views.remove_files),
