@@ -19,6 +19,14 @@ function add_table_row() {
     $('#' + row_id + '> td > #subgroups_' + rows_number).attr("id", 'subgroups_' + (rows_number + 1));
 }
 
+function remove_last_table_row() {
+    let rows_number = $('#offer_table >tbody >tr').length;
+    if (rows_number !== 1){
+        $('#row_' + rows_number).remove();
+    }
+}
+
+
 
 function collect_groups(element){
     let row = element.id.split('_')[1];

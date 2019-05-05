@@ -9,7 +9,7 @@
         <link rel="stylesheet" type="text/css" href="{% static "CSS/CustomStyles.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "CSS/BeautyForms.css" %}">
         <script src="{% static "JS/jquery-2.1.4.min.js" %}"></script>
-        <script src="{% static "JS/UsefulScripts.js" %}"></script>
+        <script src="{% static "JS/OfferScripts.js" %}"></script>
         <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     </head>
 <body>
@@ -33,15 +33,18 @@
                   <th scope="col">Группа</th>
                   <th scope="col">Подгруппа</th>
                   <th scope="col">Элемент</th>
-                  <th scope="col">Наработка на отказ</th>
-                  <th scope="col">Время использования</th>
+                  <th scope="col">Компания</th>
+                  <th scope="col">MTBF</th>
+                  <th scope="col">Ремонтопригодность</th>
+                  <th scope="col">Источник</th>
+                  <th scope="col">Информация</th>
                 </tr>
               </thead>
               <tbody>
                 <tr id="row_1">
                       <th scope="row">1</th>
                       <td>
-                          <input id="class_1" name="classes" class="for_table" type="text" list="classes" onchange="collect_groups(this)"/>
+                          <input id="class_1" name="classes" class="for_table" type="text" list="classes" onchange="collect_groups(this)" required/>
                           <datalist id="classes">
                               {% for class in Classes %}
                                   <option>{{ class }}</option>
@@ -49,36 +52,49 @@
                           </datalist>
                       </td>
                       <td>
-                          <input id="group_1" name="groups" class="for_table" type="text" list="groups_1" onchange="collect_subgroups(this)"/>
-                          <datalist id="groups_1">
+                          <input id="group_1" name="groups" class="for_table" type="text" list="groups_1" onchange="collect_subgroups(this)" required/>
+                          <datalist id="groups_1"></datalist>
+                      </td>
+                      <td>
+                          <input id="subgroup_1" name="subgroups" class="for_table" type="text" list="subgroups_1" required/>
+                          <datalist id="subgroups_1"></datalist>
+                      </td>
+                      <td>
+                          <input id="element_1" name="elements" type="text" class="for_table">
+                      </td>
+                      <td>
+                          <input id="company_1" name="companies" type="text" class="for_table" list="companies_1" required>
+                          <datalist id="companies_1">
+                              {% for company in Companies %}
+                                  <option>{{ company }}</option>
+                              {%  endfor %}
                           </datalist>
                       </td>
                       <td>
-                          <input id="subgroup_1" name="subgroups" class="for_table" type="text" list="subgroups_1"/>
-                          <datalist id="subgroups_1">
+                          <input id="MTBF" name="MTBFs" type="text" class="for_table" required>
+                      </td>
+                      <td>
+                          <input id="maintainability" name="maintainability" type="text" class="for_table" required>
+                      </td>
+                      <td>
+                          <input id="source" name="sources" type="text" class="for_table" required>
+                      </td>
+                      <td>
+                          <input id="info" name="info" type="text" class="for_table" list="info_" required>
+                          <datalist id="info_">
+                              <option> Нет </option>
                           </datalist>
-                      </td>
-                      <td>
-                          <input id="element_1" type="text" class="for_table">
-                      </td>
-                      <td>
-                          <input type="text" class="for_table">
-                      </td>
-                      <td>
-                          <input type="text" class="for_table">
                       </td>
                 </tr>
               </tbody>
             </table>
             <input type="button" value="Добавить элемент" onclick="add_table_row()">
+            <input type="button" value="Удалить элемент" onclick="remove_last_table_row()">
+
             <input type="submit" value="Предложить">
         </form>
     </div>
 </div>
-
-
-
-
 
 
 </body>
