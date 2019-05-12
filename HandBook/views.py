@@ -1,5 +1,6 @@
 from django.shortcuts import render, render_to_response
-from HandBook.models import Class, Group, SubGroup, Company, Element, HandBook
+from HandBook.models import Class, Group, SubGroup, Company, HandBook
+from Elements.models import Element
 from Profile.models import Profile
 import json
 from django.http.response import HttpResponse

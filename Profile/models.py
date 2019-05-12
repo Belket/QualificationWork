@@ -15,6 +15,9 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+    def increase_confirm_element(self):
+        self.confirmed_elements += 1
+
     def set_level(self):
         level = self.confirmed_elements // 4
         self.level = level if level > 0 else 1

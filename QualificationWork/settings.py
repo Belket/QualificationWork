@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'HomePage',
     'PersonalAccount',
     'HandBook',
-    'ElementOffer'
+    'ElementOffer',
+    'Elements',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +61,8 @@ ROOT_URLCONF = 'QualificationWork.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
+                 os.path.join(BASE_DIR, 'templates/admin')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {

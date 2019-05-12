@@ -1,14 +1,8 @@
 from django.contrib import admin
 from HandBook.models import *
-# Register your models here.
+from django import forms
 
-
-@admin.register(Element)
-class ElementAdmin(admin.ModelAdmin):
-    inlines = []
-    # fields = ["test_title", "test_lesson_number", "test_description", "test_timer", "test_doing_time",
-    #         "test_publication_date", "test_price"]
-    # list_display = ['test_title']
+# -------------- CLASS ADMINISTRATION -------------
 
 
 @admin.register(Class)
@@ -17,16 +11,36 @@ class ClassAdmin(admin.ModelAdmin):
     list_display = ['name']
 
 
+# -------------- GROUP ADMINISTRATION -------------
+
+
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
     inlines = []
     list_display = ['name']
 
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(GroupAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['class_id'].label_from_instance = lambda obj: "{}".format(obj.name)
+        return form
+
+
+# -------------- SUBGROUP ADMINISTRATION -------------
+
 
 @admin.register(SubGroup)
-class SubGroupAdmin(admin.ModelAdmin):
+class SubGroupAdmin(admin.ModelAdmin, forms.ModelForm):
     inlines = []
     list_display = ['name']
+    readonly_fields = ["midT0", "midTxp", "midTp", "midTB"]
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(SubGroupAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['group_id'].label_from_instance = lambda obj: "{}".format(obj.name)
+        return form
+
+
+# -------------- COMPANY ADMINISTRATION -------------
 
 
 @admin.register(Company)

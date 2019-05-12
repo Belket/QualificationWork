@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+# from Elements.models import Element
 import datetime
 
-# Create your models here.
+# ----------------- COMPANY ----------------
 
 
 class Company(models.Model):
@@ -11,12 +12,16 @@ class Company(models.Model):
         verbose_name_plural = "Companies"
     name = models.CharField(max_length=100, blank=False)
 
+# ----------------- CLASS ----------------
+
 
 class Class(models.Model):
     class Meta:
         verbose_name = "Class"
         verbose_name_plural = "Classes"
     name = models.CharField(max_length=100, blank=False)
+
+# ----------------- GROUP ----------------
 
 
 class Group(models.Model):
@@ -26,6 +31,8 @@ class Group(models.Model):
     class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=False)
 
+# ----------------- SUBGROUP ----------------
+
 
 class SubGroup(models.Model):
     class Meta:
@@ -33,28 +40,10 @@ class SubGroup(models.Model):
         verbose_name_plural = "Subgroups"
     group_id = models.ForeignKey(Group, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=False)
-    midT0 = models.FloatField(blank=False)
-    midTxp = models.FloatField(blank=False)
-    midTp = models.FloatField(blank=False)
-    midTB = models.FloatField(blank=False)
-
-
-class Element(models.Model):
-    class Meta:
-        verbose_name = "Element"
-        verbose_name_plural = "Elements"
-    name = models.CharField(max_length=100, blank=False)
-    Company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    Class = models.ForeignKey(Class, on_delete=models.CASCADE)
-    Group = models.ForeignKey(Group, on_delete=models.CASCADE)
-    Subgroup = models.ForeignKey(SubGroup, on_delete=models.CASCADE)
-    T0 = models.FloatField(blank=False)
-    Txp = models.FloatField(blank=False)
-    Tp = models.FloatField(blank=False)
-    TB = models.FloatField(blank=False)
-    Info = models.TextField(blank=True)
-    date_of_adding = models.DateField(blank=False)
-    confirm_link = models.CharField(max_length=100, default="None")
+    midT0 = models.FloatField(blank=True,)
+    midTxp = models.FloatField(blank=True)
+    midTp = models.FloatField(blank=True)
+    midTB = models.FloatField(blank=True)
 
 
 def set_time():
@@ -63,6 +52,8 @@ def set_time():
     date = str(date.year) + '.' + str(date.month) + '.' + str(date.day) + ', '
     time = str(time.hour) + ':' + str(time.minute)
     return date + time
+
+# ----------------- HANDBOOK ----------------
 
 
 class HandBook(models.Model):

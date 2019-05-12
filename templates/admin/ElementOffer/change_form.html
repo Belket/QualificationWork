@@ -1,7 +1,31 @@
 {% extends "admin/change_form.html" %}
+{% load i18n %}
 {% load i18n admin_urls %}
-{% block object-tools-items %}
-    {% block submit_buttons_bottom %}
-        {{ block.super }}
-    {% endblock %}
+{% load staticfiles %}
+
+
+{% block extrahead %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "JS/admin_scripts.js" %}"></script>
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+{% block submit_buttons_bottom %}
+    <div class="submit-row">
+        <input type="button" style="background-color: red" value="Отклонить" name="reject" onclick="exam_element('reject')"/>
+        <input type="button" style="background-color: green" value="Принять" name="confirm" onclick="exam_element('confirm')"/>
+    </div>
+{% endblock %}
+
+
+
+
+
