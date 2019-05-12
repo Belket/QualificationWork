@@ -17,4 +17,5 @@ class ElementAdmin(admin.ModelAdmin):
         form.base_fields['Group'].label_from_instance = lambda obj: "{}".format(obj.name)
         form.base_fields['Subgroup'].label_from_instance = lambda obj: "{}".format(obj.name)
         form.base_fields['Company'].label_from_instance = lambda obj: "{}".format(obj.name)
+        print("")
         return form
