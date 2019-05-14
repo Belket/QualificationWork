@@ -7,7 +7,7 @@ function AJAX_add_data(name, column_id, event_id, column_for_adding) {
         dataType: "json",   // Тип данных, в которых сервер должен прислать ответ
         data: "column_id=" + column_id + "&name=" + name + "&event_id=" + event_id,
         error: function () {
-            alert("При выполнении запроса произошла ошибка :(");
+            console.log("При выполнении запроса произошла ошибка :(");
         },
         success: function (data) {
             for (let i = 0; i < data.length; i++) {
@@ -30,7 +30,7 @@ function AJAX_remove_data(name, column_id, event_id) {
         data: "column_id=" + column_id + "&name=" + name + "&event_id=" + event_id,
         async: false,
         error: function () {
-            alert("При выполнении запроса произошла ошибка :(");
+            console.log("При выполнении запроса произошла ошибка :(");
         },
         success: function (data) {
             for (let i = 0; i < data.length; i++) {

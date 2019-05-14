@@ -8,42 +8,42 @@ import datetime
 
 class Company(models.Model):
     class Meta:
-        verbose_name = "Company"
-        verbose_name_plural = "Companies"
-    name = models.CharField(max_length=100, blank=False)
+        verbose_name = "Компания"
+        verbose_name_plural = "Компании"
+    name = models.CharField(max_length=100, blank=False, verbose_name="Название")
 
 # ----------------- CLASS ----------------
 
 
 class Class(models.Model):
     class Meta:
-        verbose_name = "Class"
-        verbose_name_plural = "Classes"
-    name = models.CharField(max_length=100, blank=False)
+        verbose_name = "Класс"
+        verbose_name_plural = "Классы"
+    name = models.CharField(max_length=100, blank=False, verbose_name="Название")
 
 # ----------------- GROUP ----------------
 
 
 class Group(models.Model):
     class Meta:
-        verbose_name = "Group"
-        verbose_name_plural = "Groups"
-    class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, blank=False)
+        verbose_name = "Группа"
+        verbose_name_plural = "Группы"
+    class_id = models.ForeignKey(Class, on_delete=models.CASCADE, verbose_name="Класс")
+    name = models.CharField(max_length=100, blank=False, verbose_name="Название")
 
 # ----------------- SUBGROUP ----------------
 
 
 class SubGroup(models.Model):
     class Meta:
-        verbose_name = "Subgroup"
-        verbose_name_plural = "Subgroups"
+        verbose_name = "Подргуппа"
+        verbose_name_plural = "Подгруппы"
     group_id = models.ForeignKey(Group, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, blank=False)
-    midT0 = models.FloatField(blank=True,)
-    midTxp = models.FloatField(blank=True)
-    midTp = models.FloatField(blank=True)
-    midTB = models.FloatField(blank=True)
+    name = models.CharField(max_length=100, blank=False, verbose_name="Название")
+    midT0 = models.FloatField(blank=True, verbose_name="Средняя наработка на отказ")
+    midTxp = models.FloatField(blank=True, verbose_name="Средний срок сохраняемости")
+    midTp = models.FloatField(blank=True, verbose_name="Средний ресурс (ч)")
+    midTB = models.FloatField(blank=True, verbose_name="Среднее время восстановления (ч)")
 
 
 def set_time():
