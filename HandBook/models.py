@@ -10,7 +10,7 @@ class Company(models.Model):
     class Meta:
         verbose_name = "Компания"
         verbose_name_plural = "Компании"
-    name = models.CharField(max_length=100, blank=False, verbose_name="Название")
+    name = models.CharField(max_length=100, blank=False, verbose_name="Название", unique=True)
 
 # ----------------- CLASS ----------------
 
@@ -29,7 +29,7 @@ class Group(models.Model):
         verbose_name = "Группа"
         verbose_name_plural = "Группы"
     class_id = models.ForeignKey(Class, on_delete=models.CASCADE, verbose_name="Класс")
-    name = models.CharField(max_length=100, blank=False, verbose_name="Название")
+    name = models.CharField(max_length=100, blank=False, verbose_name="Название", unique=True)
 
 # ----------------- SUBGROUP ----------------
 
@@ -39,7 +39,7 @@ class SubGroup(models.Model):
         verbose_name = "Подргуппа"
         verbose_name_plural = "Подгруппы"
     group_id = models.ForeignKey(Group, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, blank=False, verbose_name="Название")
+    name = models.CharField(max_length=100, blank=False, verbose_name="Название", unique=True)
     midT0 = models.FloatField(blank=True, verbose_name="Средняя наработка на отказ")
     midTxp = models.FloatField(blank=True, verbose_name="Средний срок сохраняемости")
     midTp = models.FloatField(blank=True, verbose_name="Средний ресурс (ч)")

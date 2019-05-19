@@ -4,17 +4,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Справочник надежности</title>
     <link rel="stylesheet" type="text/css" href="{% static "CSS/bootstrap.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "CSS/CustomStyles.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "CSS/BeautyForms.css" %}">
 </head>
 
-<body>
-    <div class="page_header">
-        {% block TITLE %}
-        {% endblock %}
-    </div>
+<body background="/static/Images/Back.jpg">
 
     <!-- МЕНЮ -->
     {% block MENU %}
@@ -29,6 +25,21 @@
                     <div class="col-md-2"></div>
             </div>
     </div>
+
+
+
+
+    <footer class="fixedContactData contacts_text" id="footer1-94" style="background-color: rgb(68, 68, 68);">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="mbr-footer__copyright"></p><p>Copyright (c) 2019 ГЛЕБРУСТЕМСВЕТА</p><p></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
 
 {% block login %}
 {% endblock %}

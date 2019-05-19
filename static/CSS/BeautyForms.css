@@ -1,55 +1,94 @@
 input[class=text] {
   width: 100%;
+  height: 40px;
   padding: 12px 20px;
   margin: 8px 0;
-  display: inline-block;
+  display: block;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 60px;
   box-sizing: border-box;
+  background-color: rgb(68, 68, 68);
+  color: white;
 }
 
+input[class=text]:hover {
+  border-radius: 60px;
+  border-style: solid;
+}
+
+input[class=text]:focus {
+  border-radius: 60px;
+  border-color: dodgerblue;
+  outline: none;
+  color: white;
+}
 
 textarea[class=text]{
   width: 100%;
+  height: 40px;
   padding: 12px 20px;
   margin: 8px 0;
-  display: inline-block;
+  display: block;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 60px;
   box-sizing: border-box;
+  background-color: rgb(68, 68, 68);
+  color: white;
+  font-family: Calibri;
 }
 
+textarea[class=text]:hover {
+  border-radius: 60px;
+  border-style: solid;
+}
+
+textarea[class=text]:focus {
+  border-radius: 60px;
+  border-color: dodgerblue;
+  outline: none;
+  color: white;
+}
 
 input[type=text] {
   width: 100%;
+  height: 40px;
   padding: 4px 20px;
   margin: 8px 0;
-  display: inline-block;
+  display: block;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 60px;
   box-sizing: border-box;
+  background-color: rgb(68, 68, 68);
+  color: white;
+  font-family: Calibri;
 }
 
+input[type=text]:hover {
+  border-radius: 60px;
+  border-style: solid;
+}
 
+input[type=text]:focus {
+  border-radius: 60px;
+  border-color: dodgerblue;
+  outline: none;
+  color: white;
+}
 input[type=submit] {
   width: 100%;
-  background-color: #4CAF50;
+  height: 45px;
+  background-color: dodgerblue;
   color: white;
   padding: 4px 20px;
   margin: 8px 0;
   border: none;
-  border-radius: 4px;
+  border-radius: 60px;
   cursor: pointer;
+  font-family: Calibri;
 }
-
-
-input[type=submit]:hover {
-  background-color: #45a049;
-}
-
 
 div[type=fields]{
   border-radius: 5px;
-  background-color: #f2f2f2;
   padding: 20px;
+  background-color: rgb(68, 68, 68);
 }

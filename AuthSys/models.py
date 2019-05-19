@@ -59,7 +59,7 @@ class UserSiteRegistrationForm(UserRegistrationForm):
         self.fields['password1'].widget.attrs['placeholder'] = 'Введите пароль'
         self.fields['password2'].help_text = ''
         self.fields['password2'].widget.attrs['class'] = 'text'
-        self.fields['password2'].widget.attrs['placeholder'] = 'Введите пароль'
+        self.fields['password2'].widget.attrs['placeholder'] = 'Повторите пароль'
         self.fields['email'].help_text = ''
         self.fields['email'].widget.attrs['class'] = 'text'
         self.fields['email'].widget.attrs['placeholder'] = 'Введите email'
@@ -73,4 +73,5 @@ class ProfileSiteRegistrationForm(ProfileRegistrationForm):
         super(ProfileSiteRegistrationForm, self).__init__(*args, **kwargs)
         self.fields['organisation'].widget.attrs['placeholder'] = 'Введите организацию'
         self.fields['organisation'].required = 'required'
+        self.fields['organisation'].widget.attrs['value'] = ''
         self.fields['position'].widget.attrs['placeholder'] = 'Введите должность'

@@ -8,7 +8,7 @@ class Element(models.Model):
     class Meta:
         verbose_name = "Элемент"
         verbose_name_plural = "Элементы"
-    name = models.CharField(max_length=100, blank=False, verbose_name="Название")
+    name = models.CharField(max_length=100, blank=False, verbose_name="Название", unique=True)
     Company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name="Компания")
     Class = models.ForeignKey(Class, on_delete=models.CASCADE, verbose_name="Класс")
     Group = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name="Группа")

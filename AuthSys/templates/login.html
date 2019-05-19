@@ -2,17 +2,44 @@
 
 {% block login %}
 
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav"> <!-- Контент меню -->
+          <span class="mbr-brand__logo"><a href="#"><img class="menu_logo" src="/static/Images/logo.png" alt="Mobirise"></a></span>
+          <ul class="navbar-nav"> <!-- Контент меню -->
             <li class="nav-item">
-                    <a class="nav-link" href="/home/"> Главная страница </a>
+                    <a class="nav-link menu_text" href="/home/"> Главная страница </a>
             </li>
-        </ul>
+            {% if username %} <!-- Пользователь авторизирован -->
+                <li class="nav-item">
+                    <a class="nav-link menu_text" href="/offer_element/"> Добавить </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu_text" href="/contact/"> Обратная связь </a>
+                </li>
+
+                <div class="form-row auth_pare">
+                    <li class="nav-item">
+                        <a class="nav-link menu_text" href="/personal_account/"> Личный кабинет </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu_text" href="/auth/logout/">Выйти ({{ username }})<span class="sr-only">(current)</span></a>
+                    </li>
+                </div>
+
+            {% else %} <!-- Пользователь не авторищирован -->
+                <div class="form-row auth_pare">
+                    <li>
+                        <a class="nav-link menu_text" href="/auth/login/"> Войти </a>
+                    </li>
+                    <li>
+                        <a class="nav-link menu_text" href="/auth/registration/"> Зарегистрироваться </a>
+                    </li>
+                </div>
+            {% endif %}
+          </ul>
       </div>
     </nav>
 
@@ -29,25 +56,22 @@
 
 
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
             <div type="fields">
-                <form action="/auth/login/" method="post">
+                <form action="/auth/login/" method="post" autocomplete="off">
                     {% csrf_token %}
-                    <label for="username">Логин</label>
+                    <!-- <label for="username">Логин</label> -->
                     <input type="text" id="username" name="username" placeholder="Ваш логин..">
 
-                    <label for="username">Логин</label>
+                    <!-- <label for="username">Логин</label> -->
                     <input type="text" id="password" name="password" placeholder="Ваш пароль..">
 
                     <input type="submit" value="Войти">
                 </form>
             </div>
         </div>
-
-        <div class="col-md-2"></div>
+        <div class="col-md-4"></div>
     </div>
     </div>
-
 {% endblock %}

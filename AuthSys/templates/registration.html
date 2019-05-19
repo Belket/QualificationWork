@@ -1,73 +1,90 @@
 {%  extends "Home.html" %}
 
 {%  block login %}
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav"> <!-- Контент меню -->
+          <span class="mbr-brand__logo"><a href="#"><img class="menu_logo" src="/static/Images/logo.png" alt="Mobirise"></a></span>
+          <ul class="navbar-nav"> <!-- Контент меню -->
             <li class="nav-item">
-                    <a class="nav-link" href="/home/"> Главная страница </a>
+                    <a class="nav-link menu_text" href="/home/"> Главная страница </a>
             </li>
-        </ul>
+            {% if username %} <!-- Пользователь авторизирован -->
+                <li class="nav-item">
+                    <a class="nav-link menu_text" href="/offer_element/"> Добавить </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu_text" href="/contact/"> Обратная связь </a>
+                </li>
+
+                <div class="form-row auth_pare">
+                    <li class="nav-item">
+                        <a class="nav-link menu_text" href="/personal_account/"> Личный кабинет </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu_text" href="/auth/logout/">Выйти ({{ username }})<span class="sr-only">(current)</span></a>
+                    </li>
+                </div>
+
+            {% else %} <!-- Пользователь не авторищирован -->
+                <div class="form-row auth_pare">
+                    <li>
+                        <a class="nav-link menu_text" href="/auth/login/"> Войти </a>
+                    </li>
+                    <li>
+                        <a class="nav-link menu_text" href="/auth/registration/"> Зарегистрироваться </a>
+                    </li>
+                </div>
+            {% endif %}
+          </ul>
       </div>
     </nav>
-
-
     <!-- фамилия, имя, почта, организация, должность -->
 
 
 <div class="container">
     <div class="row justify-content-center align-items-center">
         <div class="main_page_header" >
-            <h3> Добро пожаловать, нужно зарегистрироваться! </h3>
+            <h3> Регистрация </h3>
         </div>
     </div>
-
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <form action="/auth/registration/" method="POST">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form action="/auth/registration/" method="POST" autocomplete="off">
                 {% csrf_token %}
                 <div type="fields">
-
-                    <label for="id_username"> Логин: </label>
+                    <!-- <label for="id_username"> Логин: </label> -->
                     {{ user_creation_form.username }}
 
-                    <label for="id_password1"> Пароль: </label>
+                    <!-- <label for="id_password1"> Пароль: </label> -->
                     {{ user_creation_form.password1 }}
 
-                    <label for="id_password2"> Повторите пароль: </label>
+                    <!-- <label for="id_password2"> Повторите пароль: </label> -->
                     {{ user_creation_form.password2 }}
 
-                    <label for="id_email"> Email адрес: </label>
-                    {{ user_creation_form.email }}
-
-                    <label for="first_name"> Имя: </label>
+                    <!-- <label for="first_name"> Имя: </label> -->
                     {{ user_creation_form.first_name }}
 
-                    <label for="last_name"> Фамилия: </label>
+                    <!-- <label for="last_name"> Фамилия: </label> -->
                     {{ user_creation_form.last_name }}
 
-                    <label for="organisation"> Организация: </label>
+                    <!-- <label for="id_email"> Email адрес: </label> -->
+                    {{ user_creation_form.email }}
+
+                    <!-- <label for="organisation"> Организация: </label> -->
                     {{ profile_creation_form.organisation }}
 
-                    <label for="position"> Должность: </label>
+                    <!-- <label for="position"> Должность: </label> -->
                     {{ profile_creation_form.position }}
 
                     <input type="submit" value="Зарегистрироваться">
                 </div>
             </form>
-
-
-
         </div>
-        <div class="col-md-2"></div>
-
-
+        <div class="col-md-4"></div>
     </div>
 </div>
-    
 {%  endblock %}
