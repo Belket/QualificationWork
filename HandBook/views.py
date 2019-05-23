@@ -1,4 +1,4 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect
 from HandBook.models import Class, Group, SubGroup, Company, HandBook
 from Elements.models import Element
 from Profile.models import Profile
@@ -138,3 +138,10 @@ def create_handbook(request):
         args.update({"columns": df.columns})
         args.update({"links": links})
         return render_to_response("createdHandbookExtension.html", args)
+
+
+def delete_handbook(request):
+    handbook_id = request.GET["id"]
+    handbook = HandBook.objects.get(id=handbook_id)
+    handbook.delete()
+    return redirect("/personal_account")

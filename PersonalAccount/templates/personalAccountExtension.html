@@ -3,28 +3,28 @@
 {% block PERSONAL_DATA %}
     <div type="fields">
         <h3> Информация </h3>
-        <label for="login">Логин</label>
+        <!-- <label for="login">Логин</label> -->
         <input type="text" id="login" name="login" value="{{ user.username }}" readonly>
 
-        <label for="name">Имя</label>
+        <!-- <label for="name">Имя</label> -->
         <input type="text" id="name" name="name" value="{{ user.first_name }}" readonly>
 
-        <label for="surname">Фамилия</label>
+        <!-- <label for="surname">Фамилия</label> -->
         <input type="text" id="login" name="surname" value="{{ user.last_name }}" readonly>
 
-        <label for="email">Почта</label>
+        <!-- <label for="email">Почта</label> -->
         <input type="text" id="email" name="email" value="{{ user.email }}" readonly>
 
-        <label for="email">Организация</label>
+        <!-- <label for="email">Организация</label> -->
         <input type="text" id="organisation" name="organisation" value="{{ user.profile.organisation }}" readonly>
 
-        <label for="email">Должность</label>
+        <!-- <label for="email">Должность</label> -->
         <input type="text" id="position" name="position" value="{{ user.profile.position }}" readonly>
 
-        <label for="email">Монеты</label>
+        <!-- <label for="email">Монеты</label> -->
         <input type="text" id="coins" name="coins" value="{{ user.profile.coins }}" readonly>
 
-        <a href="/personal_account/changeData/"><button class="col-sm-12" type="button"> Изменить данные </button></a>
+        <input type="submit" value="Изменить данные" onclick="(function(){document.location.href='/personal_account/change_data/';})()">
     </div>
 {% endblock %}
 
@@ -38,12 +38,15 @@
             {% for handbook in handbooks %}
                 <div>
                     Название: <a href="/created_handbook/?handbook={{ handbook.id }}">{{ handbook.handbook_name }}</a><br>
-                    Дата добавления: {{ handbook.date_of_adding }}
+                    Дата добавления: {{ handbook.date_of_adding }} <br>
+                    <a href="/delete_handbook/?id={{ handbook.id }}" style="color: black"> Удалить справочник </a> <br>
                 </div>
                 <hr>
             {% endfor %}
         </div>
-        <a href="/creating_handbook/"> Создать справочник </a>
+        {% if handbooks.count <= 4 %}
+            <a href="/creating_handbook/"> Создать справочник </a>
+        {% endif %}
     </div>
 {% endblock %}
 
@@ -91,3 +94,5 @@
       </div>
     </nav>
 {% endblock %}
+
+

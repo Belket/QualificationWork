@@ -6,15 +6,11 @@
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="{% static "CSS/bootstrap.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "CSS/CustomStyles.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/BeautyForms.css" %}">
     <script type="text/javascript" src="{% static "JS/jquery-2.1.4.min.js" %}"></script>
     <script type="text/javascript" src="{% static "JS/handbookScripts.js" %}"></script>
 </head>
-<body onload="initialize_page()">
-
-
-<div class="page_header">
-    <h3>Qualification Work</h3>
-</div>
+<body onload="initialize_page()" background="/static/Images/Back.jpg">
 
 <div>
     {% block MENU %}
@@ -27,35 +23,61 @@
 {% csrf_token %}
     <div class="container">
         <div class="row">
-            <div id="handbook_meta">
-                <input id="handbook_name" type="text" placeholder="Введите название справочника" name="handbook_name" required>
-                <label for="coins"> Единиц валюты: </label>
-                <input id="coins" name="coins" value="{{ user.profile.coins }}" readonly>
+            <div class="col-md-3">
+                <input id="handbook_name" type="text" placeholder="Введите название справочника" name="handbook_name" autocomplete="off" required>
+            </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-1">
+                <input id="coins" type="text" name="coins" value="{{ user.profile.coins }}" readonly>
+            </div>
+            <div class="col-md-2">
+                <img src="/static/Images/Coin.png" alt="Money">
             </div>
         </div>
         <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3 handbook_text">
+                    Классы
                     {% block CLASSES %}
                     {% endblock %}
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 handbook_text">
+                    Группы
                     {% block GROUPS %}
                     {% endblock %}
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 handbook_text">
+                    Подгруппы
                     {% block SUBGROUPS %}
                     {% endblock %}
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 handbook_text">
+                    Элементы
                     {% block ELEMENTS %}
                     {% endblock %}
                 </div>
                 <hr>
         </div>
     </div>
-<input type="submit" value="Сформировать справочник">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9"></div>
+            <div class="col-md-3">
+                <input type="submit" class="handbook_confirm" value="Сформировать справочник">
+            </div>
+        </div>
+    </div>
 </form>
 
+
+    <footer class="fixedContactData contacts_text" id="footer1-94" style="background-color: rgb(68, 68, 68);">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="mbr-footer__copyright"></p><p>Copyright (c) 2019 MIEM</p><p></p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>

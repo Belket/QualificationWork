@@ -13,10 +13,8 @@ import datetime
 def offer_element(request):
     args = {}
     args.update(csrf(request))
-    print(request.POST)
-
+    args.update({'username': request.user.username})
     if request.POST:
-        args = {'username': request.user.username}
         columns = ['elements', 'classes', 'groups', 'subgroups', 'companies', 'MTBFs', 'maintainability', 'sources', 'info']
         df = pd.DataFrame(columns=columns)
         for column in df.columns:

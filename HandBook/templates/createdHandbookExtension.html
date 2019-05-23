@@ -1,11 +1,6 @@
 {% extends 'createdHandbook.html' %}
 
-
 {% block DATAFRAME %}
-
-
-        {{ element }}
-
 
     <table class="table table-bordered table-condensed">
               <thead>
@@ -27,7 +22,6 @@
                 {% endfor %}
               </tbody>
             </table>
-
 {% endblock %}
 
 
@@ -35,50 +29,44 @@
 
 
 {% block MENU %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav"> <!-- Контент меню -->
+          <span class="mbr-brand__logo"><a href="#"><img class="menu_logo" src="/static/Images/logo.png" alt="Mobirise"></a></span>
+          <ul class="navbar-nav"> <!-- Контент меню -->
             <li class="nav-item">
-                    <a class="nav-link" href="/home/"> Главная страница </a>
+                    <a class="nav-link menu_text" href="/home/"> Главная страница </a>
             </li>
-            <li class="nav-item">
-                    <a class="nav-link" href="#about_project"> О проекте </a>
-            </li>
-            <li class="nav-item">
-                    <a class="nav-link" href="#aim"> Цель </a>
-            </li>
-            <li class="nav-item">
-                    <a class="nav-link" href="/offer_element/"> Добавить </a>
-            </li>
-
             {% if username %} <!-- Пользователь авторизирован -->
                 <li class="nav-item">
-                    <a class="nav-link" href="/contact/"> Обратная связь </a>
+                    <a class="nav-link menu_text" href="/offer_element/"> Добавить </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link menu_text" href="/contact/"> Обратная связь </a>
+                </li>
+
                 <div class="form-row auth_pare">
                     <li class="nav-item">
-                        <a class="nav-link" href="/personal_account/"> Личный кабинет </a>
+                        <a class="nav-link menu_text" href="/personal_account/"> Личный кабинет </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/auth/logout/">Выйти ({{ username }})<span class="sr-only">(current)</span></a>
+                        <a class="nav-link menu_text" href="/auth/logout/">Выйти ({{ username }})<span class="sr-only">(current)</span></a>
                     </li>
                 </div>
 
             {% else %} <!-- Пользователь не авторищирован -->
                 <div class="form-row auth_pare">
                     <li>
-                        <a class="nav-link" href="/auth/login/"> Войти </a>
+                        <a class="nav-link menu_text" href="/auth/login/"> Войти </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="/auth/registration/"> Зарегистрироваться </a>
+                        <a class="nav-link menu_text" href="/auth/registration/"> Зарегистрироваться </a>
                     </li>
                 </div>
             {% endif %}
-
-        </ul>
+          </ul>
       </div>
     </nav>
 {% endblock %}

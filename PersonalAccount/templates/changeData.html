@@ -4,32 +4,52 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="{% static "CSS/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/CustomStyles.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "CSS/BeautyForms.css" %}">
     <script type="text/javascript" src="{% static "JS/jquery-2.1.4.min.js" %}"></script>
     <title>Change Data</title>
 </head>
 
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body background="/static/Images/Back.jpg">
+    <nav class="navbar navbar-expand-lg">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav"> <!-- Контент меню -->
+          <span class="mbr-brand__logo"><a href="#"><img class="menu_logo" src="/static/Images/logo.png" alt="Mobirise"></a></span>
+          <ul class="navbar-nav"> <!-- Контент меню -->
             <li class="nav-item">
-                    <a class="nav-link" href="/home/"> Главная страница </a>
+                    <a class="nav-link menu_text" href="/home/"> Главная страница </a>
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="/contact/"> Обратная связь </a>
-            </li>
-            <div class="form-row auth_pare">
+            {% if username %} <!-- Пользователь авторизирован -->
                 <li class="nav-item">
-                    <a class="nav-link" href="/personal_account/"> Личный кабинет </a>
+                    <a class="nav-link menu_text" href="/offer_element/"> Добавить </a>
                 </li>
-            </div>
-        </ul>
+                <li class="nav-item">
+                    <a class="nav-link menu_text" href="/contact/"> Обратная связь </a>
+                </li>
+
+                <div class="form-row auth_pare">
+                    <li class="nav-item">
+                        <a class="nav-link menu_text" href="/personal_account/"> Личный кабинет </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu_text" href="/auth/logout/">Выйти ({{ username }})<span class="sr-only">(current)</span></a>
+                    </li>
+                </div>
+
+            {% else %} <!-- Пользователь не авторищирован -->
+                <div class="form-row auth_pare">
+                    <li>
+                        <a class="nav-link menu_text" href="/auth/login/"> Войти </a>
+                    </li>
+                    <li>
+                        <a class="nav-link menu_text" href="/auth/registration/"> Зарегистрироваться </a>
+                    </li>
+                </div>
+            {% endif %}
+          </ul>
       </div>
     </nav>
 
@@ -37,38 +57,51 @@
 
     <div class="container main_page_content">
         <div class="row">
-            <div class="col-md-2"></div>
+            <div class="col-md-4"></div>
 
-            <div class="col-md-8">
+            <div class="col-md-4">
                 <div class="main_page_header">
                     <h3>  Измените ваши данные </h3>
                 </div>
+                    <div type="fields">
+                      <form action="/personal_account/change_data/" method="post" autocomplete="off">
+                          {% csrf_token %}
+                          <!-- <label for="name">Имя</label> -->
+                          <input type="text" id="name" name="name" placeholder="Ваше имя..">
 
-                <div type="fields">
-                  <form action="/account/changedata/" method="post">
-                    {% csrf_token %}
-                    <label for="name">Имя</label>
-                    <input type="text" id="name" name="name" placeholder="Ваше имя..">
+                          <!-- <label for="surname">Фамилия</label> -->
+                          <input type="text" id="surname" name="surname" placeholder="Ваша фамилия..">
 
-                    <label for="surname">Фамилия</label>
-                    <input type="text" id="surname" name="surname" placeholder="Ваша фамилия..">
+                          <input type="text" id="organisation" name="organisation" placeholder="Введите организацию..">
 
-                    <label for="id_password1">Пароль</label>
-                    <input type="text" id="id_password1" name="password1" placeholder="Введите пароль..">
+                          <input type="text" id="position" name="position" placeholder="Введите должноость..">
 
-                    <label for="id_password2">Пароль</label>
-                    <input type="text" id="id_password2" name="password2" placeholder="Введите пароль..">
+                          <!-- <label for="id_password1">Пароль</label> -->
+                          <input type="text" id="id_password1" name="password1" placeholder="Введите пароль..">
 
-                    <input type="submit" value="Сохранить изменения">
-                  </form>
-                </div>
+                          <!-- <label for="id_password2">Пароль</label> -->
+                          <input type="text" id="id_password2" name="password2" placeholder="Введите пароль..">
+
+                          <input type="submit" value="Сохранить изменения">
+                      </form>
+                    </div>
                 <div>
                     {{ errors }}
                 </div>
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-4"></div>
         </div>
     </div>
+
+    <footer class="fixedContactData contacts_text" id="footer1-94" style="background-color: rgb(68, 68, 68);">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="mbr-footer__copyright"></p><p>Copyright (c) 2019 MIEM</p><p></p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>

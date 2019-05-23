@@ -11,25 +11,44 @@
     <script type="text/javascript" src="{% static "JS/handbookScripts.js" %}"></script>
 </head>
 
-<body onload="activate_removing()">
+<body onload="activate_removing()" background="/static/Images/Back.jpg">
 
 {% block MENU %}
 {% endblock %}
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <a id="pdf_link" href="/{{ links.pdf }}.pdf" download> Скачать Pdf файл </a> <br>
+        </div>
+
+        <div class="col-md-4 handbook_text">
+            <div class="handbook_title"> WEB справочник</div>
+        </div>
+
+        <div class="col-md-2">
+            <a id="excel_link" href="/{{ links.excel }}.xlsx" download> Скачать Excel файл </a>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 handbook_text">
             {% block DATAFRAME %}
             {% endblock %}
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <a id="pdf_link" href="/{{ links.pdf }}.pdf" download> Скачать Pdf файл </a> <br>
-            <a id="excel_link" href="/{{ links.excel }}.xlsx" download> Скачать Excel файл </a>
-        </div>
-    </div>
 </div>
+
+    <footer class="fixedContactData contacts_text" id="footer1-94" style="background-color: rgb(68, 68, 68);">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="mbr-footer__copyright"></p><p>Copyright (c) 2019 MIEM</p><p></p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>

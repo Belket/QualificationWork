@@ -74,6 +74,7 @@ input[type=text]:focus {
   outline: none;
   color: white;
 }
+
 input[type=submit] {
   width: 100%;
   height: 45px;
@@ -87,8 +88,41 @@ input[type=submit] {
   font-family: Calibri;
 }
 
+input[type=submit]{
+  border-radius: 60px;
+  border-color: dodgerblue;
+  outline: none;
+}
+
+button[class=text]{
+  width: 100%;
+  height: 45px;
+  background-color: dodgerblue;
+  color: white;
+  padding: 4px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  font-family: Calibri;
+}
+
+
 div[type=fields]{
   border-radius: 5px;
   padding: 20px;
   background-color: rgb(68, 68, 68);
+}
+
+input[class=submit] {
+  width: 100%;
+  height: 45px;
+  background-color: dodgerblue;
+  color: white;
+  padding: 4px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  font-family: Calibri;
 }

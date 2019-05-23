@@ -40,10 +40,10 @@ class SubGroup(models.Model):
         verbose_name_plural = "Подгруппы"
     group_id = models.ForeignKey(Group, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=False, verbose_name="Название", unique=True)
-    midT0 = models.FloatField(blank=True, verbose_name="Средняя наработка на отказ")
-    midTxp = models.FloatField(blank=True, verbose_name="Средний срок сохраняемости")
-    midTp = models.FloatField(blank=True, verbose_name="Средний ресурс (ч)")
-    midTB = models.FloatField(blank=True, verbose_name="Среднее время восстановления (ч)")
+    midT0 = models.FloatField(blank=True, verbose_name="Средняя наработка на отказ", null=True, default=0)
+    midTxp = models.FloatField(blank=True, verbose_name="Средний срок сохраняемости", null=True, default=0)
+    midTp = models.FloatField(blank=True, verbose_name="Средний ресурс (ч)", null=True, default=0)
+    midTB = models.FloatField(blank=True, verbose_name="Среднее время восстановления (ч)", null=True, default=0)
 
 
 def set_time():

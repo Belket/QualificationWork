@@ -6,26 +6,62 @@
         <meta charset="UTF-8">
         <title>Title</title>
         <link rel="stylesheet" type="text/css" href="{% static "CSS/bootstrap.min.css" %}">
-        <link rel="stylesheet" type="text/css" href="{% static "CSS/CustomStyles.css" %}">
         <link rel="stylesheet" type="text/css" href="{% static "CSS/BeautyForms.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "CSS/CustomStyles.css" %}">
         <script src="{% static "JS/jquery-2.1.4.min.js" %}"></script>
         <script src="{% static "JS/OfferScripts.js" %}"></script>
-        <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     </head>
-<body>
+<body background="/static/Images/Back.jpg">
+
+     <nav class="navbar navbar-expand-lg">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <span class="mbr-brand__logo"><a href="#"><img class="menu_logo" src="/static/Images/logo.png" alt="Mobirise"></a></span>
+              <ul class="navbar-nav"> <!-- Контент меню -->
+                <li class="nav-item">
+                        <a class="nav-link menu_text" href="/home/"> Главная страница </a>
+                </li>
+                {% if username %} <!-- Пользователь авторизирован -->
+                    <li class="nav-item">
+                        <a class="nav-link menu_text" href="/offer_element/"> Добавить </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu_text" href="/contact/"> Обратная связь </a>
+                    </li>
+
+                    <div class="form-row auth_pare">
+                        <li class="nav-item">
+                            <a class="nav-link menu_text" href="/personal_account/"> Личный кабинет </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu_text" href="/auth/logout/">Выйти ({{ username }})<span class="sr-only">(current)</span></a>
+                        </li>
+                    </div>
+
+                {% else %} <!-- Пользователь не авторищирован -->
+                    <div class="form-row auth_pare">
+                        <li>
+                            <a class="nav-link menu_text" href="/auth/login/"> Войти </a>
+                        </li>
+                        <li>
+                            <a class="nav-link menu_text" href="/auth/registration/"> Зарегистрироваться </a>
+                        </li>
+                    </div>
+                {% endif %}
+              </ul>
+          </div>
+    </nav>
+
+
 
 
 <div class="container">
-    <div class="row justify-content-center align-items-center">
-        <div class="main_page_header" >
-            <h3> Введите данные элемента! </h3>
-        </div>
-    </div>
-
-    <div class="row">
-        <form action="/offer_element/" method="POST">
-        {% csrf_token %}
-            <table id="offer_table" class="table table-bordered table-condensed">
+    <form action="/offer_element/" method="POST" autocomplete="off">
+    {% csrf_token %}
+        <div class="row">
+            <table id="offer_table" class="table table-bordered table-condensed handbook_text">
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -60,7 +96,7 @@
                           <datalist id="subgroups_1"></datalist>
                       </td>
                       <td>
-                          <input id="element_1" name="elements" type="text" class="for_table">
+                          <input id="element_1" name="elements" type="text" class="for_table" required>
                       </td>
                       <td>
                           <input id="company_1" name="companies" type="text" class="for_table" list="companies_1" required>
@@ -88,12 +124,20 @@
                 </tr>
               </tbody>
             </table>
-            <input type="button" value="Добавить элемент" onclick="add_table_row()">
-            <input type="button" value="Удалить элемент" onclick="remove_last_table_row()">
 
-            <input type="submit" value="Предложить">
-        </form>
     </div>
+    <div class="row">
+        <div class="col-md-4">
+            <input type="button" class="submit" value="Добавить элемент" onclick="add_table_row()">
+        </div>
+        <div class="col-md-4">
+            <input type="button" class="submit" value="Удалить элемент" onclick="remove_last_table_row()">
+        </div>
+        <div class="col-md-4">
+            <input type="submit" value="Предложить">
+        </div>
+    </div>
+    </form>
 </div>
 
 

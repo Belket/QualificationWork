@@ -10,6 +10,21 @@
     color: white;
 }
 
+.main_page_text_main{
+    font-size: 26pt;
+    font-family: Calibri;
+    color: white;
+    text-align: center;
+    padding-top: 20%;
+}
+
+.main_page_text_lower{
+    font-size: 18pt;
+    font-family: Calibri;
+    color: white;
+    text-align: center;
+    padding-top: 5%;
+}
 
 .auth_pare{
     position: absolute;
@@ -48,4 +63,25 @@ td {margin: 0 !important; padding: 0 !important;}
 .contacts_text{
     color: darkgray;
     font-family: Calibri;
+}
+
+.handbook_text{
+    color: darkgray;
+    font-family: Calibri;
+}
+
+.handbook_confirm{
+    position: fixed;
+    width: 30px;
+    max-width: 20%;
+    bottom: 60px;
+}
+
+.handbook_title{
+    color: white;
+    font-family: Calibri;
+    font-style: oblique;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 30px;
 }

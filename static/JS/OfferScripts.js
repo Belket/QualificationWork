@@ -38,7 +38,7 @@ function collect_groups(element){
         dataType: "json",   // Тип данных, в которых сервер должен прислать ответ
         data: "name=" + name + '&type=' + 0,
         error: function () {
-            alert("При выполнении запроса произошла ошибка :(");
+            console.log("При выполнении запроса произошла ошибка :(");
         },
         success: function (data) {
             groups_data_list.html("");
@@ -60,7 +60,7 @@ function collect_subgroups(element){
         dataType: "json",   // Тип данных, в которых сервер должен прислать ответ
         data: "name=" + name + '&type=' + 1,
         error: function () {
-            alert("При выполнении запроса произошла ошибка :(");
+            console.log("При выполнении запроса произошла ошибка :(");
         },
         success: function (data) {
             subgroups_data_list.html("");
