@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'HandBook',
     'ElementOffer',
     'Elements',
+    'Contact'
 ]
 
 MIDDLEWARE = [

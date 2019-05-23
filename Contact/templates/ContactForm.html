@@ -1,0 +1,42 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/bootstrap.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/bootstrap.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/CustomStyles.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/BeautyForms.css" %}">
+    <script src="{% static "JS/bootstrap.min.js" %} "></script>
+    <script src="{% static "JS/jquery.min.js" %} "></script>
+    <title>Title</title>
+</head>
+<body background="/static/Images/Back.jpg">
+
+{% block MENU %}
+{% endblock %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h2 class="contact_header" style="color: white; font-family: Calibri; text-align: center"> Свяжитесь с нами!</h2>
+            {% block CONTACT_FORM %}
+            {% endblock %}
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+    <footer class="fixedContactData contacts_text" id="footer1-94" style="background-color: rgb(68, 68, 68);">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="mbr-footer__copyright"></p><p>Copyright (c) 2019 MIEM</p><p></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

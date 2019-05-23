@@ -1,0 +1,68 @@
+{% extends "ContactForm.html" %}
+
+
+
+{% block CONTACT_FORM %}
+    <div type="fields">
+    <form action="/contact/" method="post">
+        {% csrf_token %}
+         <!-- <label for="id_subject">Тема</label> -->
+         <input type="text" id="id_subject" name="subject" placeholder="Тема.." required>
+
+         <!-- <label for="id_email">Email</label> -->
+         <input class="text" type="email" id="id_email" name="sender" value="{{ email }}"  placeholder="Email.." required readonly>
+
+         <!-- <label for="message">Сообщение</label> -->
+         <textarea class="message" id="message" rows="5" placeholder="Введите своё сообщение.." name="message" required></textarea>
+
+         <label for="id_copy" style="color: darkgray">Отправить копию себе</label>
+         <input type="checkbox" name="copy" id="id_copy" />
+
+         <!-- <input type="submit" value="Отправить"> -->
+    </form>
+    </div>
+{% endblock %}
+
+
+{% block MENU %}
+    <nav class="navbar navbar-expand-lg">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <span class="mbr-brand__logo"><a href="#"><img class="menu_logo" src="/static/Images/logo.png" alt="Mobirise"></a></span>
+          <ul class="navbar-nav"> <!-- Контент меню -->
+            <li class="nav-item">
+                    <a class="nav-link menu_text" href="/home/"> Главная страница </a>
+            </li>
+            {% if username %} <!-- Пользователь авторизирован -->
+                <li class="nav-item">
+                    <a class="nav-link menu_text" href="/offer_element/"> Добавить </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu_text" href="/contact/"> Обратная связь </a>
+                </li>
+
+                <div class="form-row auth_pare">
+                    <li class="nav-item">
+                        <a class="nav-link menu_text" href="/personal_account/"> Личный кабинет </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu_text" href="/auth/logout/">Выйти ({{ username }})<span class="sr-only">(current)</span></a>
+                    </li>
+                </div>
+
+            {% else %} <!-- Пользователь не авторищирован -->
+                <div class="form-row auth_pare">
+                    <li>
+                        <a class="nav-link menu_text" href="/auth/login/"> Войти </a>
+                    </li>
+                    <li>
+                        <a class="nav-link menu_text" href="/auth/registration/"> Зарегистрироваться </a>
+                    </li>
+                </div>
+            {% endif %}
+          </ul>
+      </div>
+    </nav>
+{% endblock %}

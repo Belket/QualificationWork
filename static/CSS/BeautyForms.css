@@ -49,6 +49,26 @@ textarea[class=text]:focus {
   color: white;
 }
 
+textarea[class=message]{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+  background-color: rgb(68, 68, 68);
+  color: white;
+  font-family: Calibri;
+}
+
+textarea[class=message]:focus {
+  border-radius: 10px;
+  border-color: dodgerblue;
+  outline: none;
+  color: white;
+}
+
 input[type=text] {
   width: 100%;
   height: 40px;
