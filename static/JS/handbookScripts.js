@@ -1,39 +1,66 @@
 
-// click on checkbox to check
-function AJAX_add_data(name, column_id, event_id, column_for_adding) {
+// -------------------------- GETTING OBJECTS DYNAMIC -------------------------
+
+
+function click_handler(object){
+    let column_id = "column_" + parseInt(object.id.split("_")[0]);
+    if (column_id !== "column_3"){
+        if (object.checked){
+            let event = 0;
+            AJAX_add_data(object, event);
+        }
+        else{
+            let event = 1;
+            AJAX_remove_data(object, event);
+        }
+    }
+    else{
+        let elements_block = document.getElementById(column_id);
+        elements_block.setAttribute("class", "checked");
+        if ((coins === 0) && (object.checked === true)) {
+            offer_to_earn(coins);
+            object.checked = false;
+        }
+    }
+    if (document.getElementById("column_3").children.length === 0){document.getElementById("coins").value = start_coins}
+}
+
+
+function AJAX_add_data(object, event) {
+    let column_id = "column_" + (parseInt(object.id.split("_")[0]) + 1);
+    let object_id = parseInt(object.id.split("_")[1]);
     $.ajax({
         type: "GET",   // Тип запроса
         url: "/collect_data/",   // Путь к сценарию, обработающему запрос
         dataType: "json",   // Тип данных, в которых сервер должен прислать ответ
-        data: "column_id=" + column_id + "&name=" + name + "&event_id=" + event_id,
+        data: "id=" + object.id +"&event=" + event,
         error: function () {
             console.log("При выполнении запроса произошла ошибка :(");
         },
         success: function (data) {
             for (let i = 0; i < data.length; i++) {
-                let current_container = $('<div id="container_' + data[i] + '"></div>');
-                $('#' + column_for_adding).append(current_container);
-                current_container.append('<input id="' + data[i] +'" name="' + data[i] + '" type="checkbox" value="' + data[i] + '" onchange="click_on_class(this)">' + '<label for="' + data[i] + '"> ' + data[i] + '</label> <br>');
+                let current_container = $('<div id="container_' + data[i]["id"] + '"></div>');
+                $('#' + column_id).append(current_container);
+                current_container.append('<input id="' + data[i]['id'] +'" name="' + data[i]['id'] + '" type="checkbox" value="' + data[i]['id'] + '" onchange="click_handler(this)">' + '<label for="' + data[i]['id'] + '"> ' + data[i]['name'] + '</label> <br>');
             }
         }
     })
 }
 
 
-
-// click on checkbox to uncheck
-function AJAX_remove_data(name, column_id, event_id) {
+function AJAX_remove_data(object, event) {
     $.ajax({
         type: "GET",   // Тип запроса
         url: "/collect_data/",   // Путь к сценарию, обработающему запрос
         dataType: "json",   // Тип данных, в которых сервер должен прислать ответ
-        data: "column_id=" + column_id + "&name=" + name + "&event_id=" + event_id,
+        data: "id=" + object.id + "&event=" + event,
         async: false,
         error: function () {
             console.log("При выполнении запроса произошла ошибка :(");
         },
         success: function (data) {
             for (let i = 0; i < data.length; i++) {
+                console.log(data[i]);
                 $('#container_' + data[i]).remove();
             }
         }
@@ -41,33 +68,15 @@ function AJAX_remove_data(name, column_id, event_id) {
 }
 
 
-// next level of elements
-function click_on_class(class_element) {
-    let columns = ['classes', 'groups', 'subgroups', 'elements'];
-    let class_name = class_element.id;
-    let column_id = $(class_element).parent().parent().attr("id");
-    if (column_id !== 'elements'){
-        if (class_element.checked){
-            let event_id = 0;
-            AJAX_add_data(class_name, column_id, event_id, columns[columns.indexOf(column_id) + 1]);
-        }
-        else{
-            let event_id = 1;
-            AJAX_remove_data(class_name, column_id, event_id);
-        }
-    }
-    else{
-        let elements_block = document.getElementById(column_id);
-        elements_block.setAttribute("class", "checked");
-        if ((coins === 0) && (class_element.checked === true)) {
-            offer_to_earn(coins);
-            class_element.checked = false;
-        }
-    }
 
-    if (document.getElementById("elements").children.length === 0){document.getElementById("coins").value = start_coins}
-    console.log(document.getElementById("elements").children.length);
-}
+
+
+
+
+
+
+
+
 
 
 // set default states to checkboxes
@@ -78,7 +87,6 @@ function set_checkbox_state() {
 
 // removing excel and pdf files
 function activate_removing() {
-    console.log("im heger");
     window.onbeforeunload = function(){$.get("/remove_files/");}
 }
 
@@ -96,10 +104,12 @@ function observe_mutations(){
   let mutationObserver = new MutationObserver(function(mutations) {
   mutations.forEach(function(mutation) {
       let current_value = 0;
-      let children = document.getElementById("elements").children;
+      let children = document.getElementById("column_3").children;
       for(let child = 0; child < children.length; child++){
-          let class_name = document.getElementById(children[child].id).id.split('_')[1];
-          if (document.getElementById(class_name).checked === true) {current_value += 1}
+          let element_id =  document.getElementById(children[child].id).id;
+          let object = element_id.split('_')[1] + '_' + element_id.split('_')[2];
+          console.log(object);
+          if (document.getElementById(object).checked === true) {current_value += 1}
       }
       coins += old_checked_value - current_value;
       old_checked_value = current_value;
@@ -108,7 +118,7 @@ function observe_mutations(){
   });
 
 
-  mutationObserver.observe(document.getElementById("elements"), {
+  mutationObserver.observe(document.getElementById("column_3"), {
   attributes: true,
   characterData: true,
   childList: true,
@@ -134,3 +144,4 @@ function initialize_page() {
     set_checkbox_state();
     prepare_observe();
 }
+

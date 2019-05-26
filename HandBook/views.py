@@ -10,6 +10,8 @@ from HandBook.export_Excel import export_df_to_excel
 from HandBook.export_PDF import export_df_to_pdf
 import os
 
+# ----------------------------------- FUNCTIONS FOR CREATED HANDBOOK -------------------------
+
 
 def remove_files(request):
     filepath = 'static/ExportFiles/'
@@ -18,59 +20,6 @@ def remove_files(request):
     os.remove(excel_file)
     os.remove(pdf_file)
     return HttpResponse('200')
-
-
-def choose_elements(request):
-    args = {}
-    args.update(csrf(request))
-    classes = list(Class.objects.all())
-    args.update({"classes": classes})
-    args.update({"username": request.user.username})
-    args.update({"user": request.user})
-    return render_to_response("handbookCreatingExtension.html", args)
-
-
-def get_groups(class_name):
-    return [group.name for group in Group.objects.filter(class_id=Class.objects.get(name=class_name))]
-
-
-def get_subgroups(group_name):
-    return [subgroup.name for subgroup in SubGroup.objects.filter(group_id=Group.objects.get(name=group_name))]
-
-
-def get_elements(subgroup_name):
-    return [element.name for element in Element.objects.filter(Subgroup=SubGroup.objects.get(name=subgroup_name))]
-
-
-def get_data_for_removing(name, column):
-    if column == 'classes':
-        groups = get_groups(name)
-        subgroups = sum([get_subgroups(group) for group in groups], [])
-        elements = sum([get_elements(subgroup) for subgroup in subgroups], [])
-        return groups + subgroups + elements
-    if column == 'groups':
-        subgroups = get_subgroups(name)
-        elements = sum([get_elements(subgroup) for subgroup in subgroups], [])
-        return subgroups + elements
-    if column == 'subgroups':
-        return get_elements(name)
-
-
-def collect_data(request):
-    data = []
-    name = request.GET["name"]
-    column = request.GET["column_id"]
-    event_id = request.GET["event_id"]
-    if int(event_id) == 0:
-        if column == 'classes':
-            data = get_groups(name)
-        if column == 'groups':
-            data = get_subgroups(name)
-        if column == 'subgroups':
-            data = get_elements(name)
-    else:
-        data = get_data_for_removing(name, column)
-    return HttpResponse(json.dumps(data))
 
 
 def element_parameters(element, fields):
@@ -92,12 +41,14 @@ def create_dataframe(required_elements, elements_indexes=False):
         for index_element, element in enumerate(required_elements):
             df.loc[index_element] = element_parameters(element, fields)
             elements_ids.append(element.id)
+        df.drop(['id'], axis=1, inplace=True)
         return df, elements_ids
     else:
         fields = [field.name for field in Element._meta.get_fields()]
         df = pd.DataFrame(columns=fields)
         for index_element, element in enumerate(required_elements):
             df.loc[index_element] = element_parameters(element, fields)
+        df.drop(['id'], axis=1, inplace=True)
         return df
 
 
@@ -109,8 +60,7 @@ def create_handbook(request):
     links = {"pdf": file_path + str(request.user.username) + '_pdf_file',
              "excel": file_path + str(request.user.username) + '_excel_file'}
     if request.POST:
-        # формирование справочника и сохранение в бд
-        required_elements = [element for element in Element.objects.all() if request.POST.get(element.name) is not None]
+        required_elements = [element for element in Element.objects.all() if request.POST.get("3_" + str(element.id)) is not None]
         if len(required_elements) != 0:
             df, elements_ids = create_dataframe(required_elements, True)
             request.user.profile.set_coins(request.POST.get("coins"))
@@ -128,7 +78,6 @@ def create_handbook(request):
         else:
             return render_to_response("createdHandbookExtension.html", args)
     else:
-        # формирование готового справочника
         elements_ids = HandBook.objects.get(id=request.GET['handbook']).get_elements_ids()
         elements = Element.objects.filter(pk__in=elements_ids)
         df = create_dataframe(elements)
@@ -145,3 +94,54 @@ def delete_handbook(request):
     handbook = HandBook.objects.get(id=handbook_id)
     handbook.delete()
     return redirect("/personal_account")
+
+# ----------------------------------- FUNCTIONS FOR CREATING HANDBOOK -------------------------
+
+
+def create_unique_id(object):
+    models = [Class, Group, SubGroup, Element]
+    for index, model in enumerate(models):
+        if isinstance(object, model):
+            return str(index) + "_" + str(object.id)
+
+
+def choose_elements(request):
+    args = {}
+    args.update(csrf(request))
+    classes = [{"id": create_unique_id(_class), "name": _class.name} for _class in Class.objects.all()]
+    args.update({"classes": classes})
+    args.update({"username": request.user.username})
+    args.update({"user": request.user})
+    return render_to_response("handbookCreatingExtension.html", args)
+
+
+def get_data_for_removing(id, model):
+    if model is Class:
+        groups = [object for object in Group.objects.filter(class_id=Class.objects.get(id=id))]
+        subgroups = sum([[object for object in SubGroup.objects.filter(group_id=group)] for group in groups], [])
+        elements = sum([[object for object in Element.objects.filter(Subgroup_id=subgroup)] for subgroup in subgroups], [])
+        return [create_unique_id(object) for object in (groups + subgroups + elements)]
+    if model is Group:
+        subgroups = [object for object in SubGroup.objects.filter(group_id=Group.objects.get(id=id))]
+        elements = sum([[object for object in Element.objects.filter(Subgroup_id=subgroup)] for subgroup in subgroups], [])
+        return [create_unique_id(object) for object in (subgroups + elements)]
+    if model is SubGroup:
+        return [create_unique_id(object) for object in Element.objects.filter(Subgroup_id=SubGroup.objects.get(id=id))]
+
+
+def collect_data(request):
+    data = []
+    models = [Class, Group, SubGroup, Element]
+    model_id, object_id = str(request.GET["id"]).split("_")
+    model = models[int(model_id)]
+    event = int(request.GET["event"])
+    if event == 0:
+        if model is Class:
+            data = [{"id": create_unique_id(object), "name": object.name} for object in Group.objects.filter(class_id=Class.objects.get(id=object_id))]
+        if model is Group:
+            data = [{"id": create_unique_id(object), "name": object.name} for object in SubGroup.objects.filter(group_id=Group.objects.get(id=object_id))]
+        if model is SubGroup:
+            data = [{"id": create_unique_id(object), "name": object.name} for object in Element.objects.filter(Subgroup=SubGroup.objects.get(id=object_id))]
+    else:
+        data = get_data_for_removing(object_id, model)
+    return HttpResponse(json.dumps(data))
