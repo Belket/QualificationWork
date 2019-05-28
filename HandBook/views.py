@@ -12,7 +12,7 @@ import os
 
 
 def remove_files(request):
-    filepath = 'static/ExportFiles/'
+    filepath = 'QualificationWork/static/ExportFiles/'
     excel_file = filepath + request.user.username + '_excel_file.xlsx'
     pdf_file = filepath + request.user.username + '_pdf_file.pdf'
     os.remove(excel_file)
@@ -105,7 +105,7 @@ def create_handbook(request):
     args = {}
     args.update(csrf(request))
     args.update({"username": request.user.username})
-    file_path = 'static/ExportFiles/'
+    file_path = 'QualificationWork/static/ExportFiles/'
     links = {"pdf": file_path + str(request.user.username) + '_pdf_file',
              "excel": file_path + str(request.user.username) + '_excel_file'}
     if request.POST:
