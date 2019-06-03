@@ -11,6 +11,7 @@ class Profile(models.Model):
     coins = models.IntegerField(default=100)  # points to buy information about elements
     level = models.IntegerField(default=1)
     confirmed_elements = models.IntegerField(default=0)
+    activation_salt = models.CharField(max_length=30, default="none")
 
     def __str__(self):
         return self.user.username

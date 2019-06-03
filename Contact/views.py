@@ -22,7 +22,7 @@ def contact_us(request):
             message = form.cleaned_data['message']
             copy = form.cleaned_data['copy']
 
-            recipients = ["barkovgb@yandex.ru"]  # Адрес, на который приходит почта от пользователей сайта
+            recipients = ["reliabilityCSandTE@gmail.com"]  # Адрес, на который приходит почта от пользователей сайта
 
             if copy:
                 recipients.append(sender)

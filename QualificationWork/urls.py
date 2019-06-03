@@ -14,6 +14,7 @@ urlpatterns = [
     path('auth/login/', auth_views.login),
     path('auth/registration/', auth_views.registration),
     path('auth/logout/', auth_views.logout),
+    path('activate_user/<current_login>/<activation_salt>', auth_views.activate_user),
     path('offer_element/', offer_views.offer_element),
     path('admin/offer/confirm/', offer_views.confirm_offer),
     path('admin/offer/reject/', offer_views.reject_offer),
