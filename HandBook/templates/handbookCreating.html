@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Создание справочника</title>
     <link rel="stylesheet" type="text/css" href="{% static "CSS/bootstrap.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "CSS/CustomStyles.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "CSS/BeautyForms.css" %}">
@@ -21,7 +21,7 @@
 
 <form method="post" action="/created_handbook/">
 {% csrf_token %}
-    <div class="container">
+    <div class="container" style="margin-bottom: 10%">
         <div class="row">
             <div class="col-md-3">
                 <input id="handbook_name" type="text" placeholder="Введите название справочника" name="handbook_name" autocomplete="off" required>
