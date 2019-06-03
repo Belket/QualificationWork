@@ -2,10 +2,10 @@
 
 
 {% block CLASSES %}
-    <div id="classes">
+    <div id="column_0">
         {% for class in classes %}
-            <div id="container_{{ class.name }}">
-                <input type="checkbox" id="{{ class.name }}" name="{{ class.name }}" value="{{ class.name }}" onchange="click_on_class(this)">
+            <div id="container_{{ class.id }}">
+                <input type="checkbox" id="{{ class.id }}" name="{{ class.id }}" value="{{ class.name }}" onchange="click_handler(this)">
                 <label for="{{ class.name }}">{{ class.name }}</label>
                 <br>
             </div>
@@ -15,17 +15,17 @@
 
 
 {% block GROUPS %}
-    <div id="groups"></div>
+    <div id="column_1"></div>
 {% endblock %}
 
 
 {% block SUBGROUPS %}
-    <div id="subgroups"></div>
+    <div id="column_2"></div>
 {% endblock %}
 
 
 {% block ELEMENTS %}
-    <div id="elements"></div>
+    <div id="column_3"></div>
 {% endblock %}
 
 
