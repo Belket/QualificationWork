@@ -14,7 +14,8 @@ import os
 
 
 def remove_files(request):
-    filepath = 'QualificationWork/static/ExportFiles/'
+    # filepath = 'QualificationWork/static/ExportFiles/'
+    filepath = 'static/ExportFiles/'
     excel_file = filepath + request.user.username + '_excel_file.xlsx'
     pdf_file = filepath + request.user.username + '_pdf_file.pdf'
     os.remove(excel_file)
@@ -56,7 +57,8 @@ def create_handbook(request):
     args = {}
     args.update(csrf(request))
     args.update({"username": request.user.username})
-    file_path = 'QualificationWork/static/ExportFiles/'
+    # file_path = 'QualificationWork/static/ExportFiles/'
+    file_path = 'static/ExportFiles/'
     links = {"pdf": file_path + str(request.user.username) + '_pdf_file',
              "excel": file_path + str(request.user.username) + '_excel_file'}
     if request.POST:
@@ -84,7 +86,10 @@ def create_handbook(request):
         export_df_to_pdf(df, filename=links.get("pdf"))
         export_df_to_excel(df, filename=links.get("excel"))
         args.update({"elements": df.values.tolist()})
-        args.update({"columns": df.columns})
+        df_columns_names = ['Название', 'Компания', 'Класс', 'Группа', 'Подгруппа', 'Средняя наработка на отказ',
+                            'Средний срок сохраняемости', 'Средний ресурс (ч)', 'Среднее время восстановления (ч)',
+                            'Дополнительная Информация', 'Дата добавления', 'Подтверждающая ссылка']
+        args.update({"columns": df_columns_names})
         args.update({"links": links})
         return render_to_response("createdHandbookExtension.html", args)
 

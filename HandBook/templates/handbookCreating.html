@@ -27,11 +27,11 @@
                 <input id="handbook_name" type="text" placeholder="Введите название справочника" name="handbook_name" autocomplete="off" required>
             </div>
             <div class="col-md-6"></div>
-            <div class="col-md-1">
-                <input id="coins" type="text" name="coins" value="{{ user.profile.coins }}" readonly>
+            <div class="col-md-1 handbook_text">
+                Баллы:
             </div>
-            <div class="col-md-2">
-                <img src="/static/Images/Coin.png" alt="Money">
+            <div class="col-md-1">
+                <input id="coins" name="coins" value="{{ user.profile.coins }}" readonly>
             </div>
         </div>
         <div class="row">

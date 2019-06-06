@@ -19,7 +19,7 @@ class Element(models.Model):
     TB = models.FloatField(blank=False, verbose_name="Среднее время восстановления (ч)")
     Info = models.TextField(blank=True, verbose_name="Доп. Информация")
     date_of_adding = models.DateField(blank=False, verbose_name="Дата добавления")
-    confirm_link = models.CharField(max_length=100, default="None", verbose_name="Подтверждающая ссылка")
+    confirm_link = models.TextField(max_length=400, verbose_name="Подтверждающая ссылка")
 
     def save(self, *args, **kwargs):
         digits_after_comma = 2

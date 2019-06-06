@@ -36,6 +36,10 @@ def set_excel_column_sizes(worksheet, sizes):
 
 
 def export_df_to_excel(df, filename, sheetname='Sheet1'):
+    df_columns_names = ['Название', 'Компания', 'Класс', 'Группа', 'Подгруппа', 'Средняя наработка на отказ',
+                        'Средний срок сохраняемости', 'Средний ресурс (ч)', 'Среднее время восстановления (ч)',
+                        'Дополнительная Информация', 'Дата добавления', 'Подтверждающая ссылка']
+    df.columns = df_columns_names
     sizes_list = excel_columns_size(df)
     writer = pd.ExcelWriter(filename + '.xlsx', engine='xlsxwriter')
     df.to_excel(writer, sheet_name=sheetname, index=False)

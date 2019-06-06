@@ -12,6 +12,6 @@ class OfferedElement(models.Model):
     Company = models.CharField(max_length=100, blank=False, verbose_name="Компания")
     Maintainability = models.CharField(max_length=100, blank=False, verbose_name="Ремонтопригодность")
     MTBF = models.CharField(max_length=20, blank=False, verbose_name="MTBF")
-    Source = models.CharField(max_length=100, blank=False, verbose_name="Источник")
+    Source = models.TextField(max_length=400, blank=False, verbose_name="Источник")
     Info = models.TextField(blank=True, verbose_name="Доп. Информация")
     user_id = models.IntegerField(default=0, verbose_name="Пользовательский id")
