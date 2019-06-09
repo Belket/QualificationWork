@@ -2,7 +2,7 @@
 
 {% block PERSONAL_DATA %}
     <div type="fields">
-        <h3> Информация </h3>
+        <h3 style="color: white"> Информация </h3>
         <!-- <label for="login">Логин</label> -->
         <input type="text" id="login" name="login" value="{{ user.username }}" readonly>
 
@@ -32,12 +32,12 @@
 
 {% block HANDBOOKS %}
     <div type="fields">
-        <h3> Справочники </h3>
+        <h3 style="color: white;"> Справочники </h3>
         <hr>
         <div id="created_handbooks">
             {% for handbook in handbooks %}
-                <div>
-                    Название: <a href="/created_handbook/?handbook={{ handbook.id }}">{{ handbook.handbook_name }}</a><br>
+                <div style="color: white">
+                    Название: <a href="/created_handbook/?handbook={{ handbook.id }}" >{{ handbook.handbook_name }}</a><br>
                     Дата добавления: {{ handbook.date_of_adding }} <br>
                     <a href="/delete_handbook/?id={{ handbook.id }}" style="color: black"> Удалить справочник </a> <br>
                 </div>
@@ -65,7 +65,7 @@
             </li>
             {% if username %} <!-- Пользователь авторизирован -->
                 <li class="nav-item">
-                    <a class="nav-link menu_text" href="/offer_element/"> Добавить </a>
+                    <a class="nav-link menu_text" href="/offer_element/"> Предложить элементы </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu_text" href="/contact/"> Обратная связь </a>

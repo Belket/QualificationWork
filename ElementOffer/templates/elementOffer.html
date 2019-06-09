@@ -25,7 +25,7 @@
                 </li>
                 {% if username %} <!-- Пользователь авторизирован -->
                     <li class="nav-item">
-                        <a class="nav-link menu_text" href="/offer_element/"> Добавить </a>
+                        <a class="nav-link menu_text" href="/offer_element/"> Предложить элементы </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link menu_text" href="/contact/"> Обратная связь </a>
@@ -70,8 +70,8 @@
                   <th scope="col">Подгруппа</th>
                   <th scope="col">Элемент</th>
                   <th scope="col">Компания</th>
-                  <th scope="col">MTBF</th>
-                  <th scope="col">Ремонтопригодность</th>
+                  <th scope="col">Средняя наработка на отказ</th>
+                  <th scope="col">Среднее время восстановления (ч)</th>
                   <th scope="col">Источник</th>
                   <th scope="col">Информация</th>
                 </tr>
@@ -128,13 +128,13 @@
     </div>
     <div class="row">
         <div class="col-md-4">
-            <input type="button" class="submit" value="Добавить элемент" onclick="add_table_row()">
+            <input type="button" class="submit" style="font-size: 20pt" value="+" onclick="add_table_row()">
         </div>
         <div class="col-md-4">
-            <input type="button" class="submit" value="Удалить элемент" onclick="remove_last_table_row()">
+            <input type="button" class="submit" style="font-size: 25pt" value="-" onclick="remove_last_table_row()">
         </div>
         <div class="col-md-4">
-            <input type="submit" value="Предложить">
+            <input type="submit" value="Отправить">
         </div>
     </div>
     </form>
